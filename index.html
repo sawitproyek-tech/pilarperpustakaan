@@ -504,6 +504,14 @@
                 modalKonsultasi.style.display = 'none';
             }
         });
+
+        // BROWSER PROTECTIONS
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.key === 's')) { e.preventDefault(); return false; }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+        });
+        const styleSel = document.createElement('style'); styleSel.innerHTML = `body { -webkit-user-select: none; user-select: none; } input { user-select: text; }`; document.head.appendChild(styleSel);
     </script>
 </body>
 </html>
