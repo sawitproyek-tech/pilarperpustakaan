@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PILAR - E-Resources Poltekkes Malang</title>
-    <!-- Font Google -->
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <!-- YouTube IFrame Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Font Google & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome untuk Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,13 +24,19 @@
             --bg-light: #f4f9f9;   
             --text-dark: #333333;
             --border-color: #e0e0e0;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --success: #2ecc71;
         }
         body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* === MENU BAR (NAVBAR) === */
         .navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.1); z-index: 1000; }
-        .nav-brand { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
-        .btn-back { color: var(--primary); text-decoration: none; font-weight: 600; display: none; align-items: center; gap: 8px; padding: 8px 20px; border: 2px solid var(--primary); border-radius: 30px; transition: all 0.3s ease; cursor: pointer; }
+        .nav-brand { font-size: 1.4rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; user-select: none; }
+        .nav-menu { display: flex; align-items: center; gap: 15px; }
+        .nav-link { color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--primary); }
+        .btn-back { color: var(--primary); text-decoration: none; font-weight: 600; display: none; align-items: center; gap: 8px; padding: 6px 16px; border: 2px solid var(--primary); border-radius: 30px; transition: all 0.3s ease; cursor: pointer; font-size: 0.85rem; }
         .btn-back:hover { background-color: var(--primary); color: white; }
 
         /* === PAGE VIEWS (SISTEM SPA) === */
@@ -48,7 +58,7 @@
         .image-slider { width: 100%; border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 155, 151, 0.4); transition: opacity 0.5s ease-in-out; object-fit: cover; }
 
         /* === MENU LAYANAN === */
-        .layanan-section { padding: 100px 20px 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .layanan-section { padding: 80px 20px 40px 20px; max-width: 1200px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
         .section-subtitle { text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 50px; }
         .layanan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; justify-content: center; }
@@ -60,31 +70,42 @@
         .layanan-card p { font-size: 0.9rem; color: #666; }
         .badge { background-color: rgba(0, 155, 151, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 15px; }
 
-        /* === ALUR SECTION === */
-        .alur-section { padding: 60px 20px 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
-        .alur-title { background-color: var(--primary); color: white; display: inline-block; padding: 10px 40px; border-radius: 30px; font-weight: 600; margin-bottom: 50px; }
-        .alur-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
-        .alur-step { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .step-header { position: relative; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
-        .step-icon { font-size: 2.5rem; color: var(--primary); background: white; width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .step-number { color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; position: absolute; top: -10px; left: -15px; border: 3px solid white; z-index: 2; }
-        .bg-teal { background-color: var(--primary); } .bg-green { background-color: var(--secondary); } .bg-blue { background-color: var(--blue-alt); } .bg-purple { background-color: var(--purple); }
-        .alur-step h4 { color: var(--primary); margin-bottom: 10px; }
-        .alur-step p { font-size: 0.9rem; color: #666; }
-        .step-arrow { color: var(--secondary); font-size: 1.5rem; margin-top: 30px; opacity: 0.8; }
+        /* === SECTION ALUR BELAJAR === */
+        .alur-belajar-section { padding: 40px 20px 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .header-badge { display: inline-block; background-color: var(--primary); color: #ffffff; font-weight: 700; font-size: 14px; letter-spacing: 1px; padding: 10px 30px; border-radius: 20px; margin-bottom: 50px; text-transform: uppercase; }
+        .steps-container { display: flex; justify-content: space-between; align-items: flex-start; position: relative; flex-wrap: nowrap; }
+        .step-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; padding: 0 10px; }
+        .icon-wrapper { position: relative; width: 90px; height: 90px; background-color: #ffffff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); margin-bottom: 20px; }
+        .icon-wrapper i { font-size: 32px; color: var(--primary); }
+        .step-number { position: absolute; top: -2px; left: -2px; width: 26px; height: 26px; border-radius: 50%; color: #ffffff; font-size: 12px; font-weight: bold; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        .step-1 .step-number { background-color: var(--primary); }
+        .step-2 .step-number { background-color: var(--secondary); }
+        .step-3 .step-number { background-color: var(--blue-alt); }
+        .step-4 .step-number { background-color: var(--purple); }
+        .step-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .step-desc { font-size: 13px; color: #616161; line-height: 1.5; max-width: 220px; }
+        .arrow { color: var(--secondary); font-size: 20px; margin-top: 35px; font-weight: bold; }
 
-        /* === MODAL BANTUAN (POP-UP) === */
+        /* === MODAL POP-UP GENERAL === */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; padding: 40px; border-radius: 20px; width: 90%; max-width: 500px; text-align: center; position: relative; animation: modalFadeIn 0.3s ease-out; }
+        .modal-content { background: white; padding: 35px; border-radius: 20px; width: 90%; max-width: 650px; position: relative; animation: modalFadeIn 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .close-modal { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; color: #999; cursor: pointer; }
         .consult-options { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
-        .btn-consult { padding: 15px 20px; border-radius: 12px; color: white; font-weight: 600; text-decoration: none; display: flex; justify-content: center; gap: 12px; }
+        .btn-consult { padding: 15px 20px; border-radius: 12px; color: white; font-weight: 600; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 12px; cursor: pointer; border: none; }
         .btn-wa { background-color: #25D366; } .btn-form { background-color: #673AB7; }
         .btn-jadwal { background-color: var(--primary); flex-direction: column; gap: 5px; }
         .kuota-text { font-size: 0.8rem; font-weight: 400; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; }
 
-        /* === DESAIN HALAMAN MODUL BELAJAR === */
+        /* === FORM STYLES === */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #444; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; outline: none; transition: border 0.3s; }
+        .form-control:focus { border-color: var(--primary); }
+        .btn-submit { width: 100%; padding: 12px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background-color: #007A77; }
+
+        /* === MODUL BELAJAR VIEW === */
         .modul-header { margin-top: 60px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 50px 5%; text-align: center; }
         .modul-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
         .modul-header p { font-size: 1.1rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
@@ -95,31 +116,115 @@
         .menu-materi a { text-decoration: none; color: #555; display: flex; align-items: center; gap: 10px; padding: 10px 15px; border-radius: 8px; margin-bottom: 5px; font-weight: 500; }
         .menu-materi a:hover { background-color: var(--bg-light); color: var(--primary); }
         .menu-materi a.active { background-color: rgba(0, 155, 151, 0.1); color: var(--primary); border-left: 4px solid var(--primary); }
-        .menu-materi a.kuis { margin-top: 15px; background-color: var(--primary); color: white; justify-content: center; }
-        
         .main-content { flex: 3; min-width: 300px; background: white; border-radius: 15px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .main-content h2 { color: var(--text-dark); margin-bottom: 20px; border-bottom: 2px solid var(--bg-light); padding-bottom: 10px; }
-        .video-container { width: 100%; border-radius: 10px; overflow: hidden; margin-bottom: 25px; position: relative; padding-bottom: 56.25%; background: #000; }
-        .video-container iframe, .video-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .content-text p { margin-bottom: 15px; color: #555; text-align: justify; }
-        .content-text ol { margin-bottom: 20px; padding-left: 20px; color: #555; }
-        .content-text li { margin-bottom: 10px; }
-        .content-nav { display: flex; justify-content: flex-end; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); }
-        .btn-next { background-color: var(--secondary); color: white; text-decoration: none; padding: 10px 25px; border-radius: 30px; font-weight: 600; display: flex; gap: 10px; align-items: center; }
 
-        /* === FOOTER === */
+        /* CSS Proteksi Video & Custom Player Controls */
+        .video-wrapper {
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .iframe-container div#yt-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .iframe-protection-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            z-index: 10;
+        }
+        .custom-player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #1a1a1a;
+            padding: 10px 15px;
+            color: white;
+        }
+        .custom-player-controls button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .custom-player-controls button:hover {
+            background: #007A77;
+        }
+
+        /* Kuis Section di Modul */
+        .kuis-box { margin-top: 40px; padding-top: 25px; border-top: 2px dashed var(--border-color); }
+        .kuis-item { background: #fdfdfd; border: 1px solid var(--border-color); padding: 18px; border-radius: 10px; margin-bottom: 15px; }
+        .kuis-item p { font-weight: 600; color: #333; margin-bottom: 10px; }
+        .kuis-options { display: flex; flex-direction: column; gap: 8px; }
+        .kuis-option-label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; cursor: pointer; padding: 8px 12px; border-radius: 6px; background: #fff; border: 1px solid var(--border-color); }
+        .kuis-option-label:hover { background-color: var(--bg-light); }
+
+        /* === HALAMAN SUPERADMIN === */
+        .admin-wrapper { margin-top: 70px; padding: 30px 5%; max-width: 1300px; margin-left: auto; margin-right: auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .admin-nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; background: white; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        
+        /* Table Styles */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 0.88rem; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        th { background-color: #f8f9fa; color: #444; font-weight: 600; }
+        .badge-status { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+        .action-btns { display: flex; gap: 5px; }
+        .btn-sm { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; color: white; }
+        .btn-success { background: var(--success); }
+        .btn-danger { background: var(--danger); }
+        .btn-primary { background: var(--primary); }
+
+        /* Card Jadwal Publik */
+        .jadwal-card-item { background: #f9f9f9; border-left: 4px solid var(--primary); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .jadwal-card-item h4 { color: var(--primary); font-size: 1.05rem; }
+        .jadwal-meta { font-size: 0.85rem; color: #666; margin: 5px 0 10px 0; }
+        .btn-zoom { display: inline-block; padding: 6px 14px; background: #2D8CFF; color: white; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; }
+
+        /* FOOTER */
         footer { background-color: var(--primary); color: white; text-align: center; padding: 20px; margin-top: auto; width: 100%; }
 
         /* RESPONSIVE */
         @media (max-width: 968px) {
             .hero { flex-direction: column; text-align: center; padding-top: 120px; }
             .hero-content { max-width: 100%; padding-right: 0; }
-            .core-pillars { justify-content: center; }
             .hero-image { max-width: 90%; margin-top: 40px; }
-            .alur-container { flex-direction: column; align-items: center; gap: 30px; }
-            .step-arrow { transform: rotate(90deg); margin: 0; }
             .modul-container { flex-direction: column; }
             .sidebar { position: static; }
+            .steps-container { flex-direction: column; align-items: center; }
+            .arrow { transform: rotate(90deg); margin: 15px 0; }
+            .step-item { margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -127,17 +232,18 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="nav-brand" id="logo-brand">
+        <div class="nav-brand" id="logo-brand" title="Triple-click atau ketik Shift+A untuk Akses Admin">
             <i class="fas fa-book-reader"></i> PILAR
         </div>
-        <div id="btn-kembali" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        <div class="nav-menu">
+            <a class="nav-link" id="nav-pengumuman-jadwal"><i class="far fa-calendar-check"></i> Pengumuman Jadwal Konsultasi</a>
+            <div id="btn-kembali" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Beranda
+            </div>
         </div>
     </nav>
 
-    <!-- ==============================================
-         VIEW 1: HALAMAN BERANDA (HOME)
-         ============================================== -->
+    <!-- VIEW 1: BERANDA -->
     <div id="view-home" class="page-view active">
         <header class="hero">
             <div class="hero-content">
@@ -153,16 +259,16 @@
                 <a href="#menu-layanan" class="btn-scroll">Pilih Modul <i class="fas fa-arrow-down"></i></a>
             </div>
             <div class="hero-image">
-                <img src="https://placehold.co/600x400/009B97/FFFFFF?text=Fasilitas+Perpustakaan+1" id="slider-img" class="image-slider" alt="Fasilitas PILAR">
+                <img src="https://i.imgur.com/b6v5oSJ.png" id="slider-img" class="image-slider" alt="Fasilitas PILAR">
             </div>
         </header>
 
+        <!-- MENU LAYANAN -->
         <section id="menu-layanan" class="layanan-section">
             <h2 class="section-title">Modul Literasi Informasi</h2>
             <p class="section-subtitle">Pilih topik di bawah ini untuk mempelajari panduan, memahami materi, dan mengukur kemampuan Anda melalui kuis evaluasi.</p>
             
             <div class="layanan-grid">
-                <!-- Modul 1 -->
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-jurnal">
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-newspaper"></i></div>
@@ -170,7 +276,6 @@
                     <p>Pelajari cara akses artikel jurnal berkualitas, teknik pencarian efektif, hingga ekspor sitasi.</p>
                 </div>
 
-                <!-- Modul 2 -->
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-ebook">
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-tablet-alt"></i></div>
@@ -178,7 +283,6 @@
                     <p>Panduan lengkap mencari, membaca, dan mengunduh literatur elektronik dari database perpustakaan.</p>
                 </div>
 
-                <!-- Modul 3: MANAJEMEN REFERENSI -->
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-referensi">
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-quote-right"></i></div>
@@ -186,7 +290,6 @@
                     <p>Kuasai perangkat lunak sitasi seperti Mendeley dan Zotero untuk kemudahan penulisan ilmiah Anda.</p>
                 </div>
 
-                <!-- Modul 4: KATALOG PERPUSTAKAAN -->
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-katalog">
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-server"></i></div>
@@ -194,7 +297,6 @@
                     <p>Edukasi cara menelusuri ketersediaan fisik buku cetak maupun skripsi melalui sistem katalog (OPAC).</p>
                 </div>
 
-                <!-- Modul 5: REPOSITORI POLKESMA -->
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-repositori">
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-database"></i></div>
@@ -202,211 +304,351 @@
                     <p>Langkah-langkah mencari dan mengunduh full-text hasil penelitian dosen dan mahasiswa Polkesma.</p>
                 </div>
 
-                <!-- 6. Konsultasi & Bantuan -->
-                <div class="layanan-card" id="btn-buka-konsultasi" style="border-top: 3px;">
+                <div class="layanan-card" id="btn-buka-konsultasi">
                     <div class="layanan-icon"><i class="fas fa-headset"></i></div>
                     <h3>Konsultasi & Bantuan</h3>
-                    <p>Butuh pendampingan langsung? Hubungi pustakawan kami untuk bantuan lebih lanjut.</p>
+                    <p>Butuh pendampingan langsung? Buat pengajuan pendaftaran konsultasi dengan pustakawan kami.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Alur Section -->
-        <section class="alur-section">
-            <div class="alur-title">ALUR BELAJAR</div>
-            <div class="alur-container">
-                <div class="alur-step">
-                    <div class="step-header"><span class="step-number bg-teal">01</span><i class="fas fa-file-signature step-icon"></i></div>
-                    <h4>PILIH MODUL</h4><p>Pilih topik literasi informasi yang ingin Anda pelajari.</p>
+        <!-- SECTION ALUR BELAJAR -->
+        <section id="alur-belajar" class="alur-belajar-section">
+            <div class="header-badge">ALUR BELAJAR</div>
+
+            <div class="steps-container">
+                <div class="step-item step-1">
+                    <div class="icon-wrapper">
+                        <span class="step-number">01</span>
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+                    <h3 class="step-title">PILIH MODUL</h3>
+                    <p class="step-desc">Pilih topik literasi informasi yang ingin Anda pelajari.</p>
                 </div>
-                <i class="fas fa-chevron-right step-arrow"></i>
-                <div class="alur-step">
-                    <div class="step-header"><span class="step-number bg-green">02</span><i class="fas fa-play-circle step-icon"></i></div>
-                    <h4>PELAJARI MATERI</h4><p>Baca panduan dan tonton video tutorial dengan saksama.</p>
+
+                <div class="arrow">&gt;</div>
+
+                <div class="step-item step-2">
+                    <div class="icon-wrapper">
+                        <span class="step-number">02</span>
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                    <h3 class="step-title">PELAJARI MATERI</h3>
+                    <p class="step-desc">Baca panduan dan tonton video tutorial dengan saksama.</p>
                 </div>
-                <i class="fas fa-chevron-right step-arrow"></i>
-                <div class="alur-step">
-                    <div class="step-header"><span class="step-number bg-blue">03</span><i class="fas fa-user-edit step-icon"></i></div>
-                    <h4>KERJAKAN KUIS</h4><p>Uji pemahaman Anda dengan mengerjakan soal evaluasi.</p>
+
+                <div class="arrow">&gt;</div>
+
+                <div class="step-item step-3">
+                    <div class="icon-wrapper">
+                        <span class="step-number">03</span>
+                        <i class="fa-solid fa-user-pen"></i>
+                    </div>
+                    <h3 class="step-title">KERJAKAN KUIS</h3>
+                    <p class="step-desc">Uji pemahaman Anda dengan mengerjakan soal evaluasi.</p>
                 </div>
-                <i class="fas fa-chevron-right step-arrow"></i>
-                <div class="alur-step">
-                    <div class="step-header"><span class="step-number bg-purple">04</span><i class="fas fa-bullseye step-icon"></i></div>
-                    <h4>PRAKTIKKAN</h4><p>Terapkan ilmu tersebut untuk mendukung riset & tugas Anda.</p>
+
+                <div class="arrow">&gt;</div>
+
+                <div class="step-item step-4">
+                    <div class="icon-wrapper">
+                        <span class="step-number">04</span>
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="step-title">PRAKTIKKAN</h3>
+                    <p class="step-desc">Terapkan ilmu tersebut untuk mendukung riset &amp; tugas Anda.</p>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- ==============================================
-         VIEW 2: MODAL REFERENSI ARTIKEL JURNAL
-         ============================================== -->
+    <!-- VIEW MODUL-MODUL BELAJAR -->
     <div id="view-modul-jurnal" class="page-view">
-        <header class="modul-header">
-            <h1>Referensi Artikel Jurnal</h1>
-            <p>Pelajari cara menemukan, mengakses, dan mengelola artikel jurnal berkualitas untuk kebutuhan akademik dan riset Anda.</p>
-        </header>
+        <header class="modul-header"><h1>Referensi Artikel Jurnal</h1></header>
         <div class="modul-container">
-            <aside class="sidebar">
-                <h3>Daftar Materi</h3>
-                <ul class="menu-materi">
-                    <li><a href="#" class="active"><i class="fas fa-play-circle"></i> 1. Akses Jurnal Berkualitas</a></li>
-                    <li><a href="#"><i class="fas fa-search"></i> 2. Pencarian Efektif</a></li>
-                    <li><a href="#"><i class="fas fa-share-square"></i> 3. Export Sitasi</a></li>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                    <li><a href="#" class="kuis"><i class="fas fa-laptop-code"></i> Mulai Kuis Evaluasi</a></li>
-                </ul>
-            </aside>
-            <main class="main-content">
-                <h2>1. Akses Artikel Jurnal Berkualitas</h2>
-                <div class="video-container">
-                    <img src="https://placehold.co/800x450/eeeeee/999999?text=Video+Tutorial+Jurnal" alt="Video">
-                </div>
-                <div class="content-text">
-                    <p>Gunakan Database Terpercaya: Akses portal jurnal yang dilanggan oleh institusi. Pastikan jurnal tujuan terindeks di lembaga bereputasi tinggi seperti Sinta atau Scopus.</p>
-                </div>
-                <div class="content-nav">
-                    <a href="#" class="btn-next">Materi 2: Pencarian Efektif <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </main>
+            <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-jurnal"></ul></aside>
+            <main class="main-content" id="content-jurnal"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
-
-    <!-- ==============================================
-         VIEW 3: MODAL E-BOOK & E-LIBRARY
-         ============================================== -->
     <div id="view-modul-ebook" class="page-view">
-        <header class="modul-header">
-            <h1>E-Book dan E-Library</h1>
-            <p>Panduan mengakses dan meminjam koleksi buku digital dari perpustakaan.</p>
-        </header>
+        <header class="modul-header"><h1>E-Book dan E-Library</h1></header>
         <div class="modul-container">
-            <aside class="sidebar">
-                <h3>Daftar Materi</h3>
-                <ul class="menu-materi">
-                    <li><a href="#" class="active"><i class="fas fa-play-circle"></i> 1. Cara Akses E-Book</a></li>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                    <li><a href="#" class="kuis"><i class="fas fa-laptop-code"></i> Mulai Kuis Evaluasi</a></li>
-                </ul>
-            </aside>
-            <main class="main-content">
-                <h2>1. Cara Akses E-Book</h2>
-                <div class="content-text">
-                    <p>Materi panduan penggunaan platform e-library untuk meminjam buku elektronik akan diletakkan di sini.</p>
-                </div>
-            </main>
+            <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-ebook"></ul></aside>
+            <main class="main-content" id="content-ebook"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
-
-    <!-- ==============================================
-         VIEW 4: MODAL MANAJEMEN REFERENSI (BARU DITAMBAHKAN)
-         ============================================== -->
     <div id="view-modul-referensi" class="page-view">
-        <header class="modul-header">
-            <h1>Manajemen Referensi</h1>
-            <p>Kuasai perangkat lunak sitasi seperti Mendeley dan Zotero untuk mengorganisasi sumber pustaka Anda.</p>
-        </header>
+        <header class="modul-header"><h1>Manajemen Referensi</h1></header>
         <div class="modul-container">
-            <aside class="sidebar">
-                <h3>Daftar Materi</h3>
-                <ul class="menu-materi">
-                    <li><a href="#" class="active"><i class="fas fa-play-circle"></i> 1. Pengenalan Mendeley</a></li>
-                    <li><a href="#"><i class="fas fa-file-import"></i> 2. Memasukkan Referensi</a></li>
-                    <li><a href="#"><i class="fas fa-quote-right"></i> 3. Membuat Daftar Pustaka</a></li>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                    <li><a href="#" class="kuis"><i class="fas fa-laptop-code"></i> Mulai Kuis Evaluasi</a></li>
-                </ul>
-            </aside>
-            <main class="main-content">
-                <h2>1. Pengenalan dan Instalasi Mendeley</h2>
-                <div class="video-container">
-                    <img src="https://placehold.co/800x450/eeeeee/999999?text=Video+Tutorial+Mendeley" alt="Video Mendeley">
-                </div>
-                <div class="content-text">
-                    <p>Manajemen referensi adalah alat krusial bagi mahasiswa. Aplikasi ini membantu format sitasi otomatis.</p>
-                    <ol>
-                        <li><strong>Buat Akun:</strong> Daftar gratis di website penyedia aplikasi.</li>
-                        <li><strong>Unduh & Instal:</strong> Pasang di komputer Anda.</li>
-                        <li><strong>Pasang Plugin Word:</strong> Hubungkan aplikasi dengan Microsoft Word Anda.</li>
-                    </ol>
-                </div>
-                <div class="content-nav">
-                    <a href="#" class="btn-next">Materi 2: Memasukkan Referensi <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </main>
+            <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-referensi"></ul></aside>
+            <main class="main-content" id="content-referensi"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
-
-    <!-- ==============================================
-         VIEW 5: MODAL KATALOG PERPUSTAKAAN (OPAC)
-         ============================================== -->
     <div id="view-modul-katalog" class="page-view">
-        <header class="modul-header">
-            <h1>Katalog Perpustakaan (OPAC)</h1>
-            <p>Belajar cara menelusuri ketersediaan fisik buku cetak maupun skripsi melalui sistem katalog perpustakaan.</p>
-        </header>
+        <header class="modul-header"><h1>Katalog Perpustakaan</h1></header>
         <div class="modul-container">
-            <aside class="sidebar">
-                <h3>Daftar Materi</h3>
-                <ul class="menu-materi">
-                    <li><a href="#" class="active"><i class="fas fa-search"></i> 1. Penelusuran Sederhana</a></li>
-                    <li><a href="#"><i class="fas fa-book"></i> 2. Mengecek Ketersediaan</a></li>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                    <li><a href="#" class="kuis"><i class="fas fa-laptop-code"></i> Mulai Kuis Evaluasi</a></li>
-                </ul>
-            </aside>
-            <main class="main-content">
-                <h2>1. Penelusuran Sederhana (OPAC)</h2>
-                <div class="content-text">
-                    <p>Gunakan kata kunci, nama pengarang, atau judul buku untuk mencari koleksi cetak yang tersedia di rak perpustakaan Polkesma.</p>
-                </div>
-            </main>
+            <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-katalog"></ul></aside>
+            <main class="main-content" id="content-katalog"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
-
-    <!-- ==============================================
-         VIEW 6: MODAL REPOSITORI POLKESMA
-         ============================================== -->
     <div id="view-modul-repositori" class="page-view">
-        <header class="modul-header">
-            <h1>Repositori Institusi Polkesma</h1>
-            <p>Langkah-langkah mencari dan mengunduh full-text hasil karya ilmiah dosen dan mahasiswa Polkesma.</p>
-        </header>
+        <header class="modul-header"><h1>Repositori Polkesma</h1></header>
         <div class="modul-container">
-            <aside class="sidebar">
-                <h3>Daftar Materi</h3>
-                <ul class="menu-materi">
-                    <li><a href="#" class="active"><i class="fas fa-globe"></i> 1. Akses Repositori</a></li>
-                    <li><a href="#"><i class="fas fa-download"></i> 2. Mengunduh Full-Text</a></li>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-                    <li><a href="#" class="kuis"><i class="fas fa-laptop-code"></i> Mulai Kuis Evaluasi</a></li>
-                </ul>
-            </aside>
-            <main class="main-content">
-                <h2>1. Akses Repositori Institusi</h2>
-                <div class="content-text">
-                    <p>Repositori menyimpan karya ilmiah lokal Polkesma (KTI, Skripsi, Tesis, Laporan Penelitian). Anda dapat mencari referensi dari penelitian sebelumnya melalui sistem ini.</p>
-                </div>
-            </main>
+            <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-repositori"></ul></aside>
+            <main class="main-content" id="content-repositori"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
 
-    <!-- ==============================================
-         MODAL POP-UP KONSULTASI (TETAP DI SINI)
-         ============================================== -->
+    <!-- VIEW: DASHBOARD SUPERADMIN -->
+    <div id="view-superadmin" class="page-view">
+        <div class="admin-wrapper">
+            <div id="admin-login-box" class="admin-card" style="max-width: 400px; margin: 80px auto; text-align: center;">
+                <h2 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-user-shield"></i> Login Admin Portal</h2>
+                
+                <form id="form-login-admin">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="login-username" class="form-control" placeholder="admin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="admin123" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Masuk Dashboard</button>
+                </form>
+            </div>
+
+            <div id="admin-dashboard-box" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h2><i class="fas fa-user-cog"></i> Dashboard Control Superadmin</h2>
+                        <p style="font-size: 0.85rem; color: #666;">Kelola pendaftaran, terbitkan jadwal tatap maya, & buat kuis evaluasi cepat.</p>
+                    </div>
+                    <button id="btn-logout-admin" class="btn-sm btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+
+                <div class="admin-nav">
+                    <button class="tab-btn active" onclick="switchAdminTab('tab-konsultasi', event)"><i class="far fa-calendar-alt"></i> Data Pengajuan & Atur Zoom</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-materi', event)"><i class="fas fa-file-upload"></i> Upload & Kelola Materi Modul</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-kuis', event)"><i class="fas fa-bolt"></i> Kelola Kuis Evaluasi</button>
+                </div>
+
+                <!-- TAB 1: KONSULTASI -->
+                <div id="tab-konsultasi" class="admin-tab-content">
+                    <div class="admin-card">
+                        <h3>Daftar Pengajuan Konsultasi & Penjadwalan Tatap Maya</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pemohon</th>
+                                        <th>Status / Inst.</th>
+                                        <th>WhatsApp</th>
+                                        <th>Status</th>
+                                        <th>Jadwal Tatap Maya</th>
+                                        <th>Link Meeting</th>
+                                        <th>Aksi / Set Jadwal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-jadwal-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MATERI MODUL -->
+                <div id="tab-materi" class="admin-tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3 id="form-materi-title">Tambah Materi Modul Baru</h3>
+                        <form id="form-upload-materi" style="margin-top: 15px;">
+                            <input type="hidden" id="materi-edit-id">
+                            <div class="form-group">
+                                <label>Pilih Modul Tujuan</label>
+                                <select id="materi-target-modul" class="form-control" required>
+                                    <option value="jurnal">Referensi Artikel Jurnal</option>
+                                    <option value="ebook">E-Book dan E-Library</option>
+                                    <option value="referensi">Manajemen Referensi</option>
+                                    <option value="katalog">Katalog Perpustakaan</option>
+                                    <option value="repositori">Repositori Polkesma</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Judul Materi</label>
+                                <input type="text" id="materi-judul" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>URL Video YouTube (Dapat menggunakan link biasa atau embed)</label>
+                                <input type="url" id="materi-video-url" class="form-control" placeholder="https://www.youtube.com/watch?v=XXXX atau https://youtu.be/XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi / Teks Panduan Materi</label>
+                                <textarea id="materi-deskripsi" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" id="btn-submit-materi" class="btn-submit">Publikasikan Materi</button>
+                            <button type="button" id="btn-batal-materi" class="btn-submit" style="background:#666; display:none; margin-top:5px;" onclick="resetFormMateri()">Batal Edit</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Daftar Materi Modul Terpublikasi</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Modul</th>
+                                        <th>Judul Materi</th>
+                                        <th>Video</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-materi-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: KUIS EVALUASI -->
+                <div id="tab-kuis" class="admin-tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3 id="form-kuis-title">Input Banyak Soal Kuis Sekaligus (Fast Format Text)</h3>
+                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">
+                            Ketik/Paste banyak soal sekaligus menggunakan format teks berikut.
+                        </p>
+                        
+                        <form id="form-tambah-kuis-fast">
+                            <input type="hidden" id="kuis-edit-id">
+                            <div class="form-group">
+                                <label>Kategori Modul</label>
+                                <select id="kuis-target-modul" class="form-control" required>
+                                    <option value="jurnal">Referensi Artikel Jurnal</option>
+                                    <option value="ebook">E-Book dan E-Library</option>
+                                    <option value="referensi">Manajemen Referensi</option>
+                                    <option value="katalog">Katalog Perpustakaan</option>
+                                    <option value="repositori">Repositori Polkesma</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="box-bulk-kuis">
+                                <label>Format Input Teks Soal:</label>
+                                <textarea id="kuis-bulk-text" class="form-control" rows="8" placeholder="1. Apa kepanjangan dari OPAC?&#10;A. Online Public Access Catalog&#10;B. Open Public Access Center&#10;C. Option Public Access Code&#10;KUNCI: A"></textarea>
+                            </div>
+
+                            <div id="box-edit-kuis" style="display: none;">
+                                <div class="form-group">
+                                    <label>Pertanyaan Soal</label>
+                                    <input type="text" id="edit-kuis-pertanyaan" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Pilihan Jawaban (Satu per baris, contoh: A. Pilihan A)</label>
+                                    <textarea id="edit-kuis-pilihan" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kunci Jawaban (Huruf saja, misal: A)</label>
+                                    <input type="text" id="edit-kuis-kunci" class="form-control" style="width: 100px; text-transform: uppercase;" maxlength="1">
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-submit-kuis" class="btn-submit"><i class="fas fa-bolt"></i> Process & Simpan Semua Soal</button>
+                            <button type="button" id="btn-batal-kuis" class="btn-submit" style="background:#666; display:none; margin-top:5px;" onclick="resetFormKuis()">Batal Edit</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Daftar Soal Kuis Terpasang</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Modul</th>
+                                        <th>Pertanyaan</th>
+                                        <th>Kunci</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-kuis-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UPS -->
+    <div class="modal-overlay" id="modal-pengumuman-jadwal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="tutupModal('modal-pengumuman-jadwal')"></i>
+            <h3 style="color: var(--primary); margin-bottom: 5px;"><i class="far fa-calendar-check"></i> Pengumuman Jadwal Konsultasi Tatap Maya</h3>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Daftar pemohon yang telah disetujui beserta jadwal & link konsultasi online.</p>
+            <div id="container-jadwal-publik"></div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="modal-konsultasi">
         <div class="modal-content">
-            <i class="fas fa-times close-modal" id="btn-tutup-konsultasi"></i>
-            <h3>Hubungi Kami</h3>
-            <p>Pilih metode bantuan yang paling nyaman untuk Anda:</p>
+            <i class="fas fa-times close-modal" onclick="tutupModal('modal-konsultasi')"></i>
+            <h3>Hubungi Layanan Bantuan</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">Pilih metode konsultasi yang Anda butuhkan:</p>
             <div class="consult-options">
-                <a href="#" class="btn-consult btn-wa"><i class="fab fa-whatsapp"></i> Tanya via WhatsApp</a>
+                <a href="https://wa.me/6281234567890" target="_blank" class="btn-consult btn-wa"><i class="fab fa-whatsapp"></i> Tanya Langsung via WhatsApp</a>
                 <a href="#" class="btn-consult btn-form"><i class="fas fa-file-alt"></i> Tanya via Google Form</a>
-                <a href="#" class="btn-consult btn-jadwal">
-                    <div><i class="far fa-calendar-alt"></i> Buat Jadwal Konsultasi</div>
-                    <span class="kuota-text">*Maksimal 10 orang / bulan</span>
-                </a>
+                <button class="btn-consult btn-jadwal" id="btn-buka-form-jadwal">
+                    <div><i class="far fa-calendar-alt"></i> Buat Pengajuan Jadwal Konsultasi</div>
+                    <span class="kuota-text">*Maksimal 10 sesi / bulan</span>
+                </button>
             </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-form-jadwal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="tutupModal('modal-form-jadwal')"></i>
+            <h3 style="color: var(--primary);"><i class="far fa-edit"></i> Form Pengajuan Konsultasi</h3>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Isi data Anda. Jadwal dan link tatap maya akan diproses oleh tim perpustakaan.</p>
+            <form id="form-pendaftaran-konsultasi">
+                <div class="form-group">
+                    <label>Nama Lengkap *</label>
+                    <input type="text" id="input-nama" class="form-control" placeholder="Nama Lengkap & Gelar" required>
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="input-status" class="form-control" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Dosen">Dosen</option>
+                        <option value="Mahasiswa">Mahasiswa</option>
+                        <option value="Umum">Umum / Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Institusi / Program Studi *</label>
+                    <input type="text" id="input-institusi" class="form-control" placeholder="Contoh: Jurusan Gizi Polkesma" required>
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp *</label>
+                    <input type="tel" id="input-wa" class="form-control" placeholder="08xxxxxxxxxx" required>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Pengajuan Konsultasi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-admin-set-jadwal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="tutupModal('modal-admin-set-jadwal')"></i>
+            <h3 style="color: var(--primary);"><i class="fas fa-video"></i> Set Jadwal & Link Tatap Maya</h3>
+            <br>
+            <form id="form-admin-set-jadwal">
+                <input type="hidden" id="set-jadwal-id">
+                <div class="form-group">
+                    <label>Tanggal & Jam Konsultasi Tatap Maya</label>
+                    <input type="text" id="set-jadwal-waktu" class="form-control" placeholder="Contoh: Senin, 15 Juli 2026 (Jam 10.00 WIB)" required>
+                </div>
+                <div class="form-group">
+                    <label>Link Zoom / Google Meet</label>
+                    <input type="url" id="set-jadwal-link" class="form-control" placeholder="https://zoom.us/j/123456789" required>
+                </div>
+                <button type="submit" class="btn-submit">Setujui & Terbitkan Pengumuman</button>
+            </form>
         </div>
     </div>
 
@@ -415,39 +657,94 @@
         <p>Perpustakaan Terpadu Poltekkes Kemenkes Malang</p>
     </footer>
 
-    <!-- ==============================================
-         JAVASCRIPT LOGIC
-         ============================================== -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. SISTEM NAVIGASI SPA 
+        // === 1. KONFIGURASI FIREBASE ===
+        const firebaseConfig = {
+          apiKey: "AIzaSyDPdT1S2wPhcrnjOb-PzbieP6vLYChFn2M",
+          authDomain: "pilar-polkesma.firebaseapp.com",
+          databaseURL: "https://pilar-polkesma-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "pilar-polkesma",
+          storageBucket: "pilar-polkesma.firebasestorage.app",
+          messagingSenderId: "838035752549",
+          appId: "1:838035752549:web:9b5be90b4b18ea8716288c"
+        };
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Referensi Tabel/Node
+        const dbJadwal = db.ref('pilar_jadwal');
+        const dbMateri = db.ref('pilar_materi');
+        const dbKuis = db.ref('pilar_kuis');
+
+        // Global Player Instance
+        let activeYtPlayer = null;
+
+        function onYouTubeIframeAPIReady() {
+            // Callback API YouTube Siap
+        }
+
+        // Extractor Video ID YouTube
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // === LOGIKA SLIDER / CAROUSEL GAMBAR HERO ===
+        const sliderImages = [
+            "https://i.imgur.com/b6v5oSJ.png",
+            "https://i.imgur.com/b6v5oSJ.png",
+            "https://i.imgur.com/b6v5oSJ.png"
+        ];
+        let currentImgIndex = 0;
+        const sliderImgElem = document.getElementById('slider-img');
+
+        if (sliderImgElem) {
+            setInterval(() => {
+                sliderImgElem.style.opacity = '0';
+                setTimeout(() => {
+                    currentImgIndex = (currentImgIndex + 1) % sliderImages.length;
+                    sliderImgElem.src = sliderImages[currentImgIndex];
+                    sliderImgElem.style.opacity = '1';
+                }, 500);
+            }, 4000); // Berganti otomatis setiap 4 detik
+        }
+
+        // === 2. NAVIGASI SPA & UI ===
         const viewHome = document.getElementById('view-home');
+        const viewSuperadmin = document.getElementById('view-superadmin');
         const btnKembali = document.getElementById('btn-kembali');
         const logoBrand = document.getElementById('logo-brand');
         const semuaView = document.querySelectorAll('.page-view');
-        const tombolModul = document.querySelectorAll('.btn-buka-modul');
 
         function sembunyikanSemuaHalaman() {
-            semuaView.forEach(view => {
-                view.classList.remove('active');
-            });
+            semuaView.forEach(view => view.classList.remove('active'));
+            if (activeYtPlayer && typeof activeYtPlayer.destroy === 'function') {
+                activeYtPlayer.destroy();
+                activeYtPlayer = null;
+            }
         }
 
-        // Ketika card modul diklik
-        tombolModul.forEach(tombol => {
+        document.querySelectorAll('.btn-buka-modul').forEach(tombol => {
             tombol.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
                 const targetView = document.getElementById(targetId);
-
                 if (targetView) {
                     sembunyikanSemuaHalaman();
                     targetView.classList.add('active'); 
                     btnKembali.style.display = 'flex'; 
                     window.scrollTo(0, 0); 
+                    
+                    const key = targetId.replace('view-modul-', '');
+                    renderMateriModulUser(key);
                 }
             });
         });
 
-        // Ketika tombol "Kembali ke Beranda" / Logo diklik
         function kembaliKeBeranda() {
             sembunyikanSemuaHalaman();
             viewHome.classList.add('active'); 
@@ -456,62 +753,592 @@
         }
 
         btnKembali.addEventListener('click', kembaliKeBeranda);
-        logoBrand.addEventListener('click', kembaliKeBeranda);
 
-        // 2. SCROLL HALUS (BERANDA)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') !== "#") {
-                    e.preventDefault();
-                    const targetElement = document.querySelector(this.getAttribute('href'));
-                    if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // 3. SLIDER GAMBAR
-        const gambarArray = [
-            "https://placehold.co/600x400/009B97/FFFFFF?text=Fasilitas+Perpustakaan+1",
-            "https://placehold.co/600x400/8DC63F/FFFFFF?text=Fasilitas+Perpustakaan+2",
-            "https://placehold.co/600x400/007A77/FFFFFF?text=Fasilitas+Perpustakaan+3"
-        ];
-        let indexGambar = 0;
-        const imgElement = document.getElementById('slider-img');
-        setInterval(() => {
-            imgElement.style.opacity = 0;
-            setTimeout(() => {
-                indexGambar = (indexGambar + 1) % gambarArray.length; 
-                imgElement.src = gambarArray[indexGambar]; 
-                imgElement.style.opacity = 1; 
-            }, 500); 
-        }, 3000); 
-
-        // 4. MODAL KONSULTASI
-        const modalKonsultasi = document.getElementById('modal-konsultasi');
-        const btnBukaKonsultasi = document.getElementById('btn-buka-konsultasi');
-        const btnTutupKonsultasi = document.getElementById('btn-tutup-konsultasi');
-
-        btnBukaKonsultasi.addEventListener('click', () => {
-            modalKonsultasi.style.display = 'flex';
-        });
-
-        btnTutupKonsultasi.addEventListener('click', () => {
-            modalKonsultasi.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modalKonsultasi) {
-                modalKonsultasi.style.display = 'none';
+        // Shortcut & Triple Click Admin
+        let clickCount = 0;
+        logoBrand.addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 1) {
+                setTimeout(() => {
+                    if (clickCount < 3) kembaliKeBeranda();
+                    clickCount = 0;
+                }, 600);
+            } else if (clickCount >= 3) {
+                clickCount = 0;
+                bukaPortalAdmin();
             }
         });
 
-        // BROWSER PROTECTIONS
+        // Shortcut Keyboard Shift + A
+        document.addEventListener('keydown', function(e) {
+            if (e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+                e.preventDefault();
+                bukaPortalAdmin();
+            }
+        });
+
+        function bukaPortalAdmin() {
+            sembunyikanSemuaHalaman();
+            viewSuperadmin.classList.add('active');
+            btnKembali.style.display = 'flex';
+            window.scrollTo(0, 0);
+            checkAdminSession();
+        }
+
+        function tutupModal(idModal) {
+            document.getElementById(idModal).style.display = 'none';
+        }
+
+        document.getElementById('nav-pengumuman-jadwal').addEventListener('click', () => {
+            renderPengumumanJadwalPublik();
+            document.getElementById('modal-pengumuman-jadwal').style.display = 'flex';
+        });
+
+        document.getElementById('btn-buka-konsultasi').addEventListener('click', () => {
+            document.getElementById('modal-konsultasi').style.display = 'flex';
+        });
+
+        document.getElementById('btn-buka-form-jadwal').addEventListener('click', () => {
+            document.getElementById('modal-konsultasi').style.display = 'none';
+            document.getElementById('modal-form-jadwal').style.display = 'flex';
+        });
+
+
+        // === 3. LOGIKA KONSULTASI (USER & FIREBASE) ===
+        document.getElementById('form-pendaftaran-konsultasi').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newJadwalRef = dbJadwal.push();
+            
+            newJadwalRef.set({
+                id: newJadwalRef.key,
+                tanggal: new Date().toLocaleDateString('id-ID'),
+                nama: document.getElementById('input-nama').value,
+                statusSivitas: document.getElementById('input-status').value,
+                institusi: document.getElementById('input-institusi').value,
+                whatsapp: document.getElementById('input-wa').value,
+                statusPengajuan: 'Pending',
+                waktuTatapMaya: '-',
+                linkMeeting: '#'
+            }).then(() => {
+                alert("Pengajuan konsultasi berhasil dikirim!");
+                document.getElementById('form-pendaftaran-konsultasi').reset();
+                tutupModal('modal-form-jadwal');
+            }).catch(err => alert("Gagal menyimpan: " + err.message));
+        });
+
+        function renderPengumumanJadwalPublik() {
+            const container = document.getElementById('container-jadwal-publik');
+            
+            dbJadwal.on('value', (snapshot) => {
+                container.innerHTML = '';
+                const data = snapshot.val();
+                
+                if (!data) {
+                    container.innerHTML = '<p style="text-align:center; color:#888;">Belum ada jadwal konsultasi.</p>';
+                    return;
+                }
+
+                let count = 0;
+                Object.values(data).forEach(item => {
+                    if (item.statusPengajuan === 'Disetujui') {
+                        count++;
+                        container.innerHTML += `
+                            <div class="jadwal-card-item">
+                                <h4><i class="fas fa-user-circle"></i> ${item.nama} (${item.statusSivitas} - ${item.institusi})</h4>
+                                <div class="jadwal-meta">
+                                    <i class="far fa-clock"></i> <b>Waktu Tatap Maya:</b> ${item.waktuTatapMaya}
+                                </div>
+                                <a href="${item.linkMeeting}" target="_blank" class="btn-zoom"><i class="fas fa-video"></i> Masuk Link Tatap Maya</a>
+                            </div>
+                        `;
+                    }
+                });
+
+                if (count === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:#888;">Belum ada jadwal yang disetujui.</p>';
+                }
+            });
+        }
+
+
+        // === 4. SUPERADMIN LOGIC & FIREBASE ===
+        const loginBox = document.getElementById('admin-login-box');
+        const dashboardBox = document.getElementById('admin-dashboard-box');
+
+        document.getElementById('form-login-admin').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (document.getElementById('login-username').value === 'admin' && 
+                document.getElementById('login-password').value === 'admin123') {
+                sessionStorage.setItem('is_admin', 'true');
+                checkAdminSession();
+            } else {
+                alert('Username/Password Admin Salah!');
+            }
+        });
+
+        document.getElementById('btn-logout-admin').addEventListener('click', () => {
+            sessionStorage.removeItem('is_admin');
+            checkAdminSession();
+        });
+
+        function checkAdminSession() {
+            if (sessionStorage.getItem('is_admin') === 'true') {
+                loginBox.style.display = 'none';
+                dashboardBox.style.display = 'block';
+                muatDataJadwalAdmin();
+                muatDataMateriAdmin();
+                muatDataKuisAdmin();
+            } else {
+                loginBox.style.display = 'block';
+                dashboardBox.style.display = 'none';
+            }
+        }
+
+        function muatDataJadwalAdmin() {
+            const tbody = document.getElementById('table-jadwal-body');
+            
+            dbJadwal.on('value', (snapshot) => {
+                tbody.innerHTML = '';
+                const data = snapshot.val();
+
+                if (!data) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Belum ada pengajuan.</td></tr>';
+                    return;
+                }
+
+                Object.values(data).forEach(item => {
+                    let badgeClass = 'status-pending';
+                    if (item.statusPengajuan === 'Disetujui') badgeClass = 'status-approved';
+                    if (item.statusPengajuan === 'Ditolak') badgeClass = 'status-rejected';
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><b>${item.nama}</b></td>
+                            <td>${item.statusSivitas} / ${item.institusi}</td>
+                            <td><a href="https://wa.me/${item.whatsapp}" target="_blank">${item.whatsapp}</a></td>
+                            <td><span class="badge-status ${badgeClass}">${item.statusPengajuan}</span></td>
+                            <td>${item.waktuTatapMaya}</td>
+                            <td>${item.linkMeeting !== '#' ? `<a href="${item.linkMeeting}" target="_blank">Buka Link</a>` : '-'}</td>
+                            <td class="action-btns">
+                                <button class="btn-sm btn-primary" title="Set Zoom" onclick="bukaModalSetJadwal('${item.id}')"><i class="fas fa-calendar-plus"></i> Set Zoom</button>
+                                <button class="btn-sm btn-danger" title="Tolak" onclick="updateStatusJadwal('${item.id}', 'Ditolak')"><i class="fas fa-times"></i></button>
+                                <button class="btn-sm" style="background:#666;" onclick="hapusJadwal('${item.id}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        window.bukaModalSetJadwal = (id) => {
+            document.getElementById('set-jadwal-id').value = id;
+            document.getElementById('modal-admin-set-jadwal').style.display = 'flex';
+        };
+
+        document.getElementById('form-admin-set-jadwal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('set-jadwal-id').value;
+            
+            dbJadwal.child(id).update({
+                statusPengajuan: 'Disetujui',
+                waktuTatapMaya: document.getElementById('set-jadwal-waktu').value,
+                linkMeeting: document.getElementById('set-jadwal-link').value
+            }).then(() => {
+                alert("Jadwal tatap maya berhasil diterbitkan!");
+                tutupModal('modal-admin-set-jadwal');
+            });
+        });
+
+        window.updateStatusJadwal = (id, statusBaru) => {
+            dbJadwal.child(id).update({ statusPengajuan: statusBaru });
+        };
+
+        window.hapusJadwal = (id) => {
+            if (confirm("Hapus pengajuan ini?")) {
+                dbJadwal.child(id).remove();
+            }
+        };
+
+
+        // === 5. MATERI & KUIS LOGIC (CRUD FIREBASE) ===
+
+        // --- A. KELOLA MATERI MODUL ---
+        function muatDataMateriAdmin() {
+            const tbody = document.getElementById('table-materi-body');
+            dbMateri.on('value', (snapshot) => {
+                tbody.innerHTML = '';
+                const data = snapshot.val();
+                if (!data) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada materi.</td></tr>';
+                    return;
+                }
+                Object.values(data).forEach(m => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><span class="badge" style="margin:0;">${m.modulKey.toUpperCase()}</span></td>
+                            <td><b>${m.judul}</b></td>
+                            <td>${m.videoUrl ? '<i class="fab fa-youtube" style="color:red;"></i> Ada' : '-'}</td>
+                            <td class="action-btns">
+                                <button class="btn-sm btn-primary" onclick="editMateri('${m.id}')"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm btn-danger" onclick="hapusMateri('${m.id}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        document.getElementById('form-upload-materi').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('materi-edit-id').value;
+            const payload = {
+                modulKey: document.getElementById('materi-target-modul').value,
+                judul: document.getElementById('materi-judul').value,
+                videoUrl: document.getElementById('materi-video-url').value,
+                deskripsi: document.getElementById('materi-deskripsi').value
+            };
+
+            if (editId) {
+                dbMateri.child(editId).update(payload).then(() => {
+                    alert("Materi berhasil diperbarui!");
+                    resetFormMateri();
+                });
+            } else {
+                const newMateriRef = dbMateri.push();
+                payload.id = newMateriRef.key;
+                newMateriRef.set(payload).then(() => {
+                    alert("Materi berhasil dipublikasikan!");
+                    resetFormMateri();
+                });
+            }
+        });
+
+        window.editMateri = (id) => {
+            dbMateri.child(id).once('value', (snap) => {
+                const m = snap.val();
+                if (m) {
+                    document.getElementById('materi-edit-id').value = m.id;
+                    document.getElementById('materi-target-modul').value = m.modulKey;
+                    document.getElementById('materi-judul').value = m.judul;
+                    document.getElementById('materi-video-url').value = m.videoUrl || '';
+                    document.getElementById('materi-deskripsi').value = m.deskripsi;
+                    
+                    document.getElementById('form-materi-title').innerText = "Edit Materi Modul";
+                    document.getElementById('btn-submit-materi').innerText = "Simpan Perubahan";
+                    document.getElementById('btn-batal-materi').style.display = "block";
+                    window.scrollTo(0, 0);
+                }
+            });
+        };
+
+        window.hapusMateri = (id) => {
+            if (confirm("Hapus materi ini?")) dbMateri.child(id).remove();
+        };
+
+        function resetFormMateri() {
+            document.getElementById('form-upload-materi').reset();
+            document.getElementById('materi-edit-id').value = '';
+            document.getElementById('form-materi-title').innerText = "Tambah Materi Modul Baru";
+            document.getElementById('btn-submit-materi').innerText = "Publikasikan Materi";
+            document.getElementById('btn-batal-materi').style.display = "none";
+        }
+
+        // --- B. KELOLA KUIS EVALUASI ---
+        function muatDataKuisAdmin() {
+            const tbody = document.getElementById('table-kuis-body');
+            dbKuis.on('value', (snapshot) => {
+                tbody.innerHTML = '';
+                const data = snapshot.val();
+                if (!data) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada soal kuis.</td></tr>';
+                    return;
+                }
+                Object.values(data).forEach(q => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><span class="badge" style="margin:0;">${q.modulKey.toUpperCase()}</span></td>
+                            <td>${q.pertanyaan}</td>
+                            <td><b>${q.kunci}</b></td>
+                            <td class="action-btns">
+                                <button class="btn-sm btn-primary" onclick="editKuis('${q.id}')"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm btn-danger" onclick="hapusKuis('${q.id}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+
+        document.getElementById('form-tambah-kuis-fast').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('kuis-edit-id').value;
+            const modulKey = document.getElementById('kuis-target-modul').value;
+
+            if (editId) {
+                const pilihanArr = document.getElementById('edit-kuis-pilihan').value.split('\n').filter(l => l.trim());
+                dbKuis.child(editId).update({
+                    modulKey,
+                    pertanyaan: document.getElementById('edit-kuis-pertanyaan').value,
+                    pilihan: pilihanArr,
+                    kunci: document.getElementById('edit-kuis-kunci').value.toUpperCase()
+                }).then(() => {
+                    alert("Soal kuis berhasil diperbarui!");
+                    resetFormKuis();
+                });
+            } else {
+                const bulkText = document.getElementById('kuis-bulk-text').value.trim();
+                if (!bulkText) return alert("Teks soal tidak boleh kosong!");
+
+                const rawBlocks = bulkText.split(/\n\s*\n/);
+                let countBerhasil = 0;
+
+                rawBlocks.forEach(block => {
+                    const lines = block.split('\n').map(l => l.trim()).filter(l => l);
+                    if (lines.length >= 3) {
+                        const pertanyaan = lines[0];
+                        const pilihan = lines.filter(l => l.match(/^[A-Ea-e][\.\)]/));
+                        const kunciMatch = block.match(/KUNCI:\s*([A-Ea-e])/i);
+
+                        if (pertanyaan && kunciMatch) {
+                            const newKuisRef = dbKuis.push();
+                            newKuisRef.set({
+                                id: newKuisRef.key,
+                                modulKey,
+                                pertanyaan,
+                                pilihan,
+                                kunci: kunciMatch[1].toUpperCase()
+                            });
+                            countBerhasil++;
+                        }
+                    }
+                });
+                alert(`Berhasil menyimpan ${countBerhasil} soal kuis ke Firebase!`);
+                resetFormKuis();
+            }
+        });
+
+        window.editKuis = (id) => {
+            dbKuis.child(id).once('value', (snap) => {
+                const q = snap.val();
+                if (q) {
+                    document.getElementById('kuis-edit-id').value = q.id;
+                    document.getElementById('kuis-target-modul').value = q.modulKey;
+                    document.getElementById('edit-kuis-pertanyaan').value = q.pertanyaan;
+                    document.getElementById('edit-kuis-pilihan').value = q.pilihan.join('\n');
+                    document.getElementById('edit-kuis-kunci').value = q.kunci;
+
+                    document.getElementById('box-bulk-kuis').style.display = "none";
+                    document.getElementById('box-edit-kuis').style.display = "block";
+                    document.getElementById('form-kuis-title').innerText = "Edit Soal Kuis";
+                    document.getElementById('btn-submit-kuis').innerHTML = "Simpan Perubahan Soal";
+                    document.getElementById('btn-batal-kuis').style.display = "block";
+                    window.scrollTo(0, 0);
+                }
+            });
+        };
+
+        window.hapusKuis = (id) => {
+            if (confirm("Hapus soal kuis ini?")) dbKuis.child(id).remove();
+        };
+
+        function resetFormKuis() {
+            document.getElementById('form-tambah-kuis-fast').reset();
+            document.getElementById('kuis-edit-id').value = '';
+            document.getElementById('box-bulk-kuis').style.display = "block";
+            document.getElementById('box-edit-kuis').style.display = "none";
+            document.getElementById('form-kuis-title').innerText = "Input Banyak Soal Kuis Sekaligus (Fast Format Text)";
+            document.getElementById('btn-submit-kuis').innerHTML = '<i class="fas fa-bolt"></i> Process & Simpan Semua Soal';
+            document.getElementById('btn-batal-kuis').style.display = "none";
+        }
+
+
+        // === 6. RENDER MATERI & KUIS DI MODUL USER ===
+        function renderMateriModulUser(key) {
+            const listElem = document.getElementById(`list-materi-${key}`);
+            const mainElem = document.getElementById(`content-${key}`);
+
+            dbMateri.on('value', (snapshot) => {
+                const data = snapshot.val();
+                listElem.innerHTML = '';
+
+                if (!data) {
+                    listElem.innerHTML = '<li><a href="#">Belum ada materi</a></li>';
+                    mainElem.innerHTML = '<h2>Materi Belum Tersedia</h2>';
+                    return;
+                }
+
+                const filtered = Object.values(data).filter(m => m.modulKey === key);
+
+                if (filtered.length === 0) {
+                    listElem.innerHTML = '<li><a href="#">Belum ada materi</a></li>';
+                    mainElem.innerHTML = '<h2>Materi Belum Tersedia</h2>';
+                } else {
+                    filtered.forEach((m, index) => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<a href="#" class="${index === 0 ? 'active' : ''}"><i class="fas fa-file-alt"></i> ${m.judul}</a>`;
+                        li.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            document.querySelectorAll(`#list-materi-${key} a`).forEach(a => a.classList.remove('active'));
+                            li.querySelector('a').classList.add('active');
+                            tampilkanDetailMateri(mainElem, m, key);
+                        });
+                        listElem.appendChild(li);
+                    });
+                    tampilkanDetailMateri(mainElem, filtered[0], key);
+                }
+            });
+        }
+
+        function tampilkanDetailMateri(targetContainer, materi, key) {
+            let videoHTML = '';
+            const videoId = extractYouTubeId(materi.videoUrl);
+
+            if (videoId) {
+                videoHTML = `
+                    <div class="video-wrapper">
+                        <div class="iframe-container">
+                            <div id="yt-player"></div>
+                            <div class="iframe-protection-layer" oncontextmenu="return false;"></div>
+                        </div>
+                        <div class="custom-player-controls">
+                            <button id="btn-play-pause"><i class="fas fa-play"></i> Putar Video</button>
+                            <button id="btn-mute"><i class="fas fa-volume-up"></i> Suara On/Off</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            dbKuis.once('value', (snapshot) => {
+                const dataKuis = snapshot.val() || {};
+                const kuisModul = Object.values(dataKuis).filter(k => k.modulKey === key);
+
+                let kuisHTML = '';
+                if (kuisModul.length > 0) {
+                    kuisHTML = `
+                        <div class="kuis-box">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Kuis Evaluasi Pemahaman</h3>
+                            ${kuisModul.map((q, idx) => `
+                                <div class="kuis-item">
+                                    <p>${idx + 1}. ${q.pertanyaan}</p>
+                                    <div class="kuis-options">
+                                        ${q.pilihan.map(opt => `
+                                            <label class="kuis-option-label">
+                                                <input type="radio" name="kuis_${q.id}" value="${opt.charAt(0)}"> ${opt}
+                                            </label>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                            <button class="btn-submit" onclick="evaluasiKuis('${key}')"><i class="fas fa-check-circle"></i> Periksa Jawaban Kuis</button>
+                        </div>
+                    `;
+                }
+
+                targetContainer.innerHTML = `
+                    <h2>${materi.judul}</h2>
+                    ${videoHTML}
+                    <div class="content-text"><p>${materi.deskripsi}</p></div>
+                    ${kuisHTML}
+                `;
+
+                // Inisialisasi API Player YouTube jika video ada
+                if (videoId) {
+                    if (activeYtPlayer && typeof activeYtPlayer.destroy === 'function') {
+                        activeYtPlayer.destroy();
+                    }
+
+                    activeYtPlayer = new YT.Player('yt-player', {
+                        videoId: videoId,
+                        playerVars: {
+                            'controls': 0,
+                            'rel': 0,
+                            'modestbranding': 1,
+                            'disablekb': 1
+                        },
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                }
+
+                const overlay = targetContainer.querySelector('.iframe-protection-layer');
+                if (overlay) {
+                    overlay.addEventListener('contextmenu', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    });
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            const btnPlay = document.getElementById('btn-play-pause');
+            const btnMute = document.getElementById('btn-mute');
+
+            if (btnPlay) {
+                btnPlay.addEventListener('click', function() {
+                    const playerState = activeYtPlayer.getPlayerState();
+                    if (playerState === YT.PlayerState.PLAYING) {
+                        activeYtPlayer.pauseVideo();
+                        btnPlay.innerHTML = '<i class="fas fa-play"></i> Putar Video';
+                    } else {
+                        activeYtPlayer.playVideo();
+                        btnPlay.innerHTML = '<i class="fas fa-pause"></i> Jeda Video';
+                    }
+                });
+            }
+
+            if (btnMute) {
+                btnMute.addEventListener('click', function() {
+                    if (activeYtPlayer.isMuted()) {
+                        activeYtPlayer.unMute();
+                        btnMute.innerHTML = '<i class="fas fa-volume-up"></i> Suara On';
+                    } else {
+                        activeYtPlayer.mute();
+                        btnMute.innerHTML = '<i class="fas fa-volume-mute"></i> Suara Off';
+                    }
+                });
+            }
+        }
+
+        window.evaluasiKuis = (key) => {
+            dbKuis.once('value', (snapshot) => {
+                const dataKuis = snapshot.val() || {};
+                const kuisModul = Object.values(dataKuis).filter(k => k.modulKey === key);
+                
+                let benar = 0;
+                kuisModul.forEach(q => {
+                    const selected = document.querySelector(`input[name="kuis_${q.id}"]:checked`);
+                    if (selected && selected.value.toUpperCase() === q.kunci) {
+                        benar++;
+                    }
+                });
+
+                const nilai = Math.round((benar / kuisModul.length) * 100);
+                alert(`Hasil Evaluasi Kuis Anda:\nSkor: ${nilai} / 100\nBenar ${benar} dari ${kuisModul.length} soal.`);
+            });
+        };
+
+        // Tab Switcher Admin
+        window.switchAdminTab = (tabId, ev) => {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            if (ev && ev.currentTarget) {
+                ev.currentTarget.classList.add('active');
+            }
+        };
+
+        // PROTEKSI NATIVE PERAMBAN
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.key === 's')) { e.preventDefault(); return false; }
             if (e.key === 'F12') { e.preventDefault(); return false; }
         });
-        const styleSel = document.createElement('style'); styleSel.innerHTML = `body { -webkit-user-select: none; user-select: none; } input { user-select: text; }`; document.head.appendChild(styleSel);
+        const styleSel = document.createElement('style'); 
+        styleSel.innerHTML = `body { -webkit-user-select: none; user-select: none; } input, textarea { user-select: text; }`; 
+        document.head.appendChild(styleSel);
     </script>
 </body>
 </html>
