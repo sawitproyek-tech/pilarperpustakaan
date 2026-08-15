@@ -228,7 +228,7 @@
                     <div class="pillar-item"><i class="fas fa-book-open"></i><span>LITERASI</span></div>
                     <div class="pillar-item"><i class="fas fa-globe"></i><span>DIGITAL</span></div>
                     <div class="pillar-item"><i class="fas fa-graduation-cap"></i><span>REFERENSI</span></div>
-                    <div class="pillar-item"><i class="fas fa-users" id="btn-buka-konsultasi"></i><span>KOLABORASI</span></div>
+                    <div class="pillar-item btn-buka-konsultasi"><i class="fas fa-users"></i><span>KOLABORASI</span></div>
                 </div>
                 <a href="#menu-layanan" class="btn-scroll">Pilih Modul <i class="fas fa-arrow-down"></i></a>
             </div>
@@ -262,7 +262,7 @@
                     <h3>Kerjakan Kuis</h3>
                     <p>Selesaikan bacaan hingga bagian paling bawah untuk membuka dan menjawab kuis evaluasi pemahaman.</p>
                 </div>
-                <div class="alur-card">
+                <div class="alur-card btn-buka-konsultasi">
                     <div class="alur-step">4</div>
                     <div class="alur-icon"><i class="fas fa-user-graduate"></i></div>
                     <h3>Konsultasi</h3>
@@ -878,8 +878,12 @@
             document.getElementById('modal-pengumuman-jadwal').style.display = 'flex';
         });
 
-        document.getElementById('btn-buka-konsultasi').addEventListener('click', () => {
-            document.getElementById('modal-konsultasi').style.display = 'flex';
+        document.querySelectorAll('.btn-buka-konsultasi').forEach(item => {
+            item.addEventListener('click', function() {
+                // Kode untuk membuka modal / form konsultasi kamu
+                const modal = document.getElementById('modal-konsultasi');
+                if (modal) modal.style.display = 'flex';
+            });
         });
 
         document.getElementById('btn-buka-form-jadwal').addEventListener('click', () => {
