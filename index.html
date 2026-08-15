@@ -71,9 +71,10 @@
         .pillar-item i { font-size: 1.8rem; margin-bottom: 10px; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .btn-scroll { padding: 15px 35px; font-size: 1.1rem; font-weight: 600; color: var(--primary); background-color: white; border: none; border-radius: 50px; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
         .btn-scroll:hover { transform: translateY(-3px); }
-        .hero-image { flex: 1; max-width: 40%; display: flex; justify-content: center; align-items: center; }
-        .image-slider { width: 100%; border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 155, 151, 0.4); transition: opacity 0.5s ease-in-out; object-fit: cover; }
-
+        .hero-image {flex: 1;max-width: 40%;position: relative; /* Penting: agar gambar menumpuk di area ini */display: flex;justify-content: center;align-items: center; min-height: 550px;  /* Sesuaikan tinggi sesuai kebutuhan visual */}
+        .image-slider {width: 100%; position: absolute; /* Menumpuk gambar pada titik yang sama */ top: 0; left: 0; border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 155, 151, 0.4); transition: opacity 0.8s ease-in-out; object-fit: cover; opacity: 0; /* Sembunyikan gambar secara default */}
+        .image-slider.active {opacity: 1; /* Tampilkan hanya gambar yang memiliki class active */}
+        
         /* === ALUR BELAJAR SECTION === */
         .alur-section { padding: 80px 20px 20px 20px; max-width: 1200px; margin: 0 auto; }
         .alur-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -230,7 +231,8 @@
                 <a href="#menu-layanan" class="btn-scroll">Pilih Modul <i class="fas fa-arrow-down"></i></a>
             </div>
             <div class="hero-image">
-                <img src="https://i.imgur.com/b6v5oSJ.png" id="slider-img" class="image-slider" alt="PILAR Polkesma">
+                <img src="https://i.imgur.com/b6v5oSJ.png" id="slider-img" class="image-slider" alt="PILAR Polkesma1">
+                <img src="https://i.imgur.com/yus40rw.png" id="slider-img" class="image-slider" alt="PILAR Polkesma2">
             </div>
         </header>
 
