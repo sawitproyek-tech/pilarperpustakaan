@@ -67,8 +67,9 @@
         .hero-content h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 20px; }
         .hero-content p { font-size: 1.1rem; margin-bottom: 40px; opacity: 0.95; }
         .core-pillars { display: flex; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
-        .pillar-item { display: flex; flex-direction: column; align-items: center; font-weight: 600; font-size: 0.9rem; }
-        .pillar-item i { font-size: 1.8rem; margin-bottom: 10px; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .pillar-item { display: flex; flex-direction: column; align-items: center; font-weight: 600; font-size: 0.9rem; cursor: pointer;}
+        .pillar-item i { font-size: 1.8rem; margin-bottom: 10px; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);/* Transisi dengan kurva membal yang mulus */transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);}
+        .pillar-item:hover i {transform: rotate(8deg) scale(1.08); /* Rotasi 8 derajat */background: #ffffff; /* Mengubah lingkaran menjadi putih solid */color: #007bff; /* Warna ikon FontAwesome berubah (sesuaikan tema) */box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);}
         .btn-scroll { padding: 15px 35px; font-size: 1.1rem; font-weight: 600; color: var(--primary); background-color: white; border: none; border-radius: 50px; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
         .btn-scroll:hover { transform: translateY(-3px); }
         .hero-image {flex: 1;max-width: 40%;position: relative; /* Penting: agar gambar menumpuk di area ini */display: flex;justify-content: center;align-items: center; min-height: 550px;  /* Sesuaikan tinggi sesuai kebutuhan visual */}
@@ -227,7 +228,7 @@
                     <div class="pillar-item"><i class="fas fa-book-open"></i><span>LITERASI</span></div>
                     <div class="pillar-item"><i class="fas fa-globe"></i><span>DIGITAL</span></div>
                     <div class="pillar-item"><i class="fas fa-graduation-cap"></i><span>REFERENSI</span></div>
-                    <div class="pillar-item"><i class="fas fa-users"></i><span>KOLABORASI</span></div>
+                    <div class="pillar-item"><i class="fas fa-users" id="btn-buka-konsultasi"></i><span>KOLABORASI</span></div>
                 </div>
                 <a href="#menu-layanan" class="btn-scroll">Pilih Modul <i class="fas fa-arrow-down"></i></a>
             </div>
