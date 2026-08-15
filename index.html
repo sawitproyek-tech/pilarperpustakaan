@@ -1564,6 +1564,21 @@
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             e.preventDefault(); 
         });
+
+         const slides = document.querySelectorAll('.hero-image .image-slider');
+                let currentIndex = 0;
+        
+                setInterval(() => {
+                    // Sembunyikan gambar aktif saat ini
+                    slides[currentIndex].classList.remove('active');
+                    
+                    // Pindah ke indeks berikutnya (kembali ke 0 jika sudah di akhir)
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    
+                    // Tampilkan gambar baru
+                    slides[currentIndex].classList.add('active');
+                }, 3500); // Pergantian dilakukan setiap 3.5 detik
+           
     </script>
 </body>
 </html>
