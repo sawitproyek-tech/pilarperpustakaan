@@ -41,8 +41,8 @@
         /* === NAVBAR === */
         .navbar { padding: 8px 5%; position: fixed; top: 0; left: 0; width: 100%; background-color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.1); z-index: 1000; }
         .nav-brand { font-size: 1.4rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; user-select: none; }
-        .nav-menu { display: flex; align-items: center; gap: 15px; }
-        .nav-link { color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: color 0.3s ease; }
+        .nav-menu { display: flex; align-items: center; gap: 20px; }
+        .nav-link { color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: color 0.3s ease; display: flex; align-items: center; gap: 6px; }
         .nav-link:hover { color: var(--primary); }
         .btn-back { color: var(--primary); text-decoration: none; font-weight: 600; display: none; align-items: center; gap: 8px; padding: 6px 16px; border: 2px solid var(--primary); border-radius: 30px; transition: all 0.3s ease; cursor: pointer; font-size: 0.85rem; }
         .btn-back:hover { background-color: var(--primary); color: white; }
@@ -68,15 +68,15 @@
         .hero-content p { font-size: 1.1rem; margin-bottom: 40px; opacity: 0.95; }
         .core-pillars { display: flex; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
         .pillar-item { display: flex; flex-direction: column; align-items: center; font-weight: 600; font-size: 0.9rem; cursor: pointer;}
-        .pillar-item i { font-size: 1.8rem; margin-bottom: 10px; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);/* Transisi dengan kurva membal yang mulus */transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);}
-        .pillar-item:hover i {transform: rotate(8deg) scale(1.08); /* Rotasi 8 derajat */background: #ffffff; /* Mengubah lingkaran menjadi putih solid */color: #007bff; /* Warna ikon FontAwesome berubah (sesuaikan tema) */box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);}
+        .pillar-item i { font-size: 1.8rem; margin-bottom: 10px; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);}
+        .pillar-item:hover i {transform: rotate(8deg) scale(1.08); background: #ffffff; color: #007bff; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);}
         .pillar-item a { display: flex; flex-direction: column; align-items: center;text-decoration: none; color: inherit;}
         .btn-scroll { padding: 15px 35px; font-size: 1.1rem; font-weight: 600; color: var(--primary); background-color: white; border: none; border-radius: 50px; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
         .btn-scroll:hover { transform: translateY(-3px); }
-        .hero-image {flex: 1;max-width: 40%;position: relative; /* Penting: agar gambar menumpuk di area ini */display: flex;justify-content: center;align-items: center; min-height: 550px;  /* Sesuaikan tinggi sesuai kebutuhan visual */}
-        .image-slider {width: 100%; position: absolute; /* Menumpuk gambar pada titik yang sama */ top: 0; left: 0; border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 155, 151, 0.4); transition: opacity 0.8s ease-in-out; object-fit: cover; opacity: 0; /* Sembunyikan gambar secara default */}
-        .image-slider.active {opacity: 1; /* Tampilkan hanya gambar yang memiliki class active */}
-        
+        .hero-image {flex: 1;max-width: 40%;position: relative; display: flex;justify-content: center;align-items: center; min-height: 550px; }
+        .image-slider {width: 100%; position: absolute; top: 0; left: 0; border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 155, 151, 0.4); transition: opacity 0.8s ease-in-out; object-fit: cover; opacity: 0; }
+        .image-slider.active {opacity: 1; }
+
         /* === ALUR BELAJAR SECTION === */
         .alur-section { padding: 80px 20px 20px 20px; max-width: 1200px; margin: 0 auto; }
         .alur-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -100,6 +100,27 @@
         .layanan-card p { font-size: 0.9rem; color: #666; }
         .badge { background-color: rgba(0, 155, 151, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 15px; }
 
+        /* === HALAMAN DAFTAR BERITA / KELAS BERSAMA === */
+        .berita-page-container { max-width: 1200px; margin: 100px auto 40px auto; padding: 20px 5%; }
+        .berita-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 20px; }
+        .berita-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.3s ease; border-top: 4px solid var(--primary); }
+        .berita-card:hover { transform: translateY(-5px); }
+        .berita-img { width: 100%; height: 200px; object-fit: cover; }
+        .berita-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .berita-date { font-size: 0.8rem; color: var(--primary); font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .berita-title { font-size: 1.15rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; line-height: 1.4; }
+        .berita-snippet { font-size: 0.9rem; color: #666; margin-bottom: 15px; flex: 1; }
+        .berita-link-action { margin-bottom: 15px; }
+        .btn-read-berita { align-self: flex-start; padding: 8px 16px; background: rgba(0,155,151,0.1); color: var(--primary); border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background 0.2s; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-read-berita:hover { background: var(--primary); color: white; }
+        .btn-external-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: #2D8CFF; color: white; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: opacity 0.2s; margin-left: 5px; }
+        .btn-external-link:hover { opacity: 0.9; }
+
+        /* HALAMAN DETAIL BACA BERITA FULL */
+        .berita-container-full { max-width: 900px; margin: 100px auto 40px auto; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .berita-full-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin: 20px 0; }
+        .berita-full-content { font-size: 1.05rem; line-height: 1.8; color: #444; }
+
         /* === MODAL POP-UP === */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: white; padding: 35px; border-radius: 20px; width: 90%; max-width: 650px; position: relative; animation: modalFadeIn 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
@@ -122,17 +143,23 @@
         .btn-submit:hover { background-color: var(--primary-dark); }
         .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
 
+        /* === SUB-NAV / FILTER TAB (NEW) === */
+        .sub-nav-container { display: flex; justify-content: center; gap: 10px; margin: 25px auto 0 auto; max-width: 1200px; padding: 0 5%; flex-wrap: wrap; }
+        .sub-tab-btn { padding: 9px 22px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .sub-tab-btn.active, .sub-tab-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,155,151,0.25); }
+
         /* === MODUL BELAJAR VIEW === */
-        .modul-header { margin-top: 60px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 50px 5%; text-align: center; }
+        .modul-header { margin-top: 60px; padding: 25px 5% 10px 5%; text-align: center; background: transparent; }
+        .modul-header img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,155,151,0.15); display: block; }
         .modul-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .modul-container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 40px auto; padding: 0 5%; gap: 30px; flex: 1; }
-        .sidebar { flex: 1; min-width: 250px; background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); align-self: flex-start; position: sticky; top: 100px; }
+        .modul-container { display: flex; flex-wrap: wrap; max-width: 1450px; margin: 30px auto 40px auto; padding: 0 3%; gap: 25px; flex: 1; }
+        .sidebar { flex: 1; max-width: 280px; min-width: 230px; background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); align-self: flex-start; position: sticky; top: 100px; }
         .sidebar h3 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--bg-light); padding-bottom: 10px; }
         .menu-materi { list-style: none; }
         .menu-materi a { text-decoration: none; color: #555; display: flex; align-items: center; gap: 10px; padding: 10px 15px; border-radius: 8px; margin-bottom: 5px; font-weight: 500; transition: all 0.2s; }
         .menu-materi a:hover { background-color: var(--bg-light); color: var(--primary); }
         .menu-materi a.active { background-color: rgba(0, 155, 151, 0.1); color: var(--primary); border-left: 4px solid var(--primary); font-weight: 600; }
-        .main-content { flex: 3; min-width: 300px; background: white; border-radius: 15px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: relative; }
+        .main-content { flex: 4; min-width: 300px; background: white; border-radius: 15px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: relative; overflow-x: hidden;}
 
         /* EMBED MEDIA (YOUTUBE & PDF) */
         .media-embed-box { margin-bottom: 25px; border-radius: 12px; overflow: hidden; background: #1a1a1a; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
@@ -177,27 +204,57 @@
         th { background-color: #f8f9fa; color: #444; font-weight: 600; }
 
         /* Styling untuk Logo PNG */
-        .nav-brand img {
-            height: 80px;        /* Atur tinggi logo di navbar */
-            width: auto;         /* Otomatis menjaga proporsi gambar agar tidak gepeng */
-            display: block;
-            object-fit: contain;
-        }
-
+        .nav-brand img { height: 80px; width: auto; display: block; object-fit: contain; }
         footer { background-color: var(--primary); color: white; text-align: center; padding: 20px; margin-top: auto; width: 100%; }
+
+        /* === EFEK BUKU / SLIDER MEMBACA === */
+        .book-container { position: relative; width: 100%; overflow: hidden; background: #fff; border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .book-slider { display: flex; transition: transform 0.4s ease-in-out; width: 100%; }
+        .book-page { flex: 0 0 100%; padding: 30px 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 300px; }
+        .book-page-content, .main-content div[style*='line-height:1.8'] { font-size: 1.15rem !important; line-height: 1.9 !important; color: #444; }
+        .book-page-footer { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #888; border-top: 1px dashed #ccc; padding-top: 10px; }
+        .book-controls { display: flex; justify-content: space-between; padding: 15px 30px; background: #fafafa; border-top: 1px solid var(--border-color); }
+        .btn-book { padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+        .btn-book:hover:not(:disabled) { background: var(--primary-dark); }
+        .btn-book:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* === CHATBOT WIDGET STYLES === */
+        .chat-widget-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--primary); color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; z-index: 1001; transition: transform 0.3s ease, background 0.3s ease; }
+        .chat-widget-btn:hover { transform: scale(1.1); background-color: var(--primary-dark); }
+        
+        .chat-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 500px; max-height: 80vh; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; z-index: 1001; transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; pointer-events: none; transform: translateY(20px); border: 1px solid var(--border-color); }
+        .chat-window.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        
+        .chat-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.1rem; }
+        .chat-header .close-chat { cursor: pointer; font-size: 1.2rem; transition: color 0.2s; }
+        .chat-header .close-chat:hover { color: var(--danger); }
+        
+        .chat-body { flex: 1; padding: 15px; background: #f5f8f8; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        
+        .chat-msg { max-width: 85%; padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; position: relative; animation: fadeIn 0.3s ease-in-out; }
+        .bot-msg { background: white; border: 1px solid var(--border-color); color: var(--text-dark); align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .user-msg { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; box-shadow: 0 2px 5px rgba(0,155,151,0.2); }
+        
+        .chat-footer { padding: 15px; background: white; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
+        .chat-opt-btn { background: #e8f8f5; border: 1px solid var(--primary); color: var(--primary-dark); padding: 10px 15px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-align: left; transition: all 0.2s ease; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .chat-opt-btn:hover { background: var(--primary); color: white; }
 
         @media (max-width: 968px) {
             .navbar { padding: 15px 20px; }
             .nav-toggle { display: block; }
             .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
             .nav-menu.active { display: flex; }
-            .nav-brand img { height: 60px; /* Ukuran kompromi agar di HP tetap proporsional dan tidak menutupi konten */}
+            .nav-brand img {height: 60px; }
             .hero { flex-direction: column; text-align: center; padding-top: 120px; }
             .hero-content { max-width: 100%; padding-right: 0; }
             .hero-content h1 { font-size: 3rem; }
             .hero-image { max-width: 90%; margin-top: 40px; }
             .modul-container { flex-direction: column; }
             .sidebar { position: static; width: 100%; }
+            .book-page { padding: 20px; }
+            .book-controls { padding: 12px 20px; }
+            .chat-window { width: calc(100% - 40px); right: 20px; bottom: 100px; height: 60vh; }
+            .chat-widget-btn { width: 55px; height: 55px; font-size: 1.5rem; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -211,6 +268,7 @@
         <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
         <div class="nav-menu" id="nav-menu">
             <a class="nav-link" id="nav-pengumuman-jadwal"><i class="far fa-calendar-check"></i> Pengumuman Jadwal Konsultasi</a>
+            <a class="nav-link" id="nav-menu-berita"><i class="fas fa-newspaper"></i> Menu Berita (Kelas Bersama)</a>
             <div id="btn-kembali" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Beranda
             </div>
@@ -227,19 +285,19 @@
                 <p>Akses Mudah, Informasi Berkualitas, Prestasi Optimal. Modul pembelajaran E-Resources Perpustakaan Terpadu Poltekkes Kemenkes Malang dalam satu genggaman.</p>
                 <div class="core-pillars">
                     <div class="pillar-item"><a href="#menu-layanan"><i class="fas fa-book-open"></i></a><span>LITERASI</span></div>
-                    <div class="pillar-item"><a href="https://perpustakaan.poltekkes-malang.ac.id/" target="_blank"><i class="fas fa-globe"></i></a><span>DIGITAL</span></div>
+                    <div class="pillar-item"><a href="https://perpustakaan.poltekkes-malang.ac.id/" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a><span>DIGITAL</span></div>
                     <div class="pillar-item"><i class="fas fa-graduation-cap"></i><span>REFERENSI</span></div>
                     <div class="pillar-item btn-buka-konsultasi"><i class="fas fa-users"></i><span>KOLABORASI</span></div>
                 </div>
                 <a href="#menu-layanan" class="btn-scroll">Pilih Modul <i class="fas fa-arrow-down"></i></a>
             </div>
             <div class="hero-image">
-                <img src="https://i.imgur.com/b6v5oSJ.png" id="slider-img" class="image-slider active" alt="PILAR Polkesma1">
-                <img src="https://i.imgur.com/yus40rw.png" id="slider-img" class="image-slider" alt="PILAR Polkesma2">
+                <img src="https://i.imgur.com/b6v5oSJ.png" id="slider-img1" class="image-slider active" alt="PILAR Polkesma1">
+                <img src="https://i.imgur.com/yus40rw.png" id="slider-img2" class="image-slider" alt="PILAR Polkesma2">
             </div>
         </header>
 
-        <!-- ALUR BELAJAR (NEW / RE-ADDED) -->
+        <!-- ALUR BELAJAR -->
         <section class="alur-section">
             <h2 class="section-title">Alur Belajar di PILAR</h2>
             <p class="section-subtitle">Empat langkah mudah untuk meningkatkan efektivitas pemahaman literasi akademik Anda.</p>
@@ -282,7 +340,7 @@
                     <span class="badge">Modul + Kuis</span>
                     <div class="layanan-icon"><i class="fas fa-newspaper"></i></div>
                     <h3>Referensi Artikel Jurnal</h3>
-                    <p>Akses artikel jurnal berkualitas, teknik pencarian Boolean, &amp; ekspor sitasi.</p>
+                    <p>Akses artikel jurnal Wiley &amp; ProQuest, teknik pencarian Boolean, &amp; ekspor sitasi.</p>
                 </div>
 
                 <div class="layanan-card btn-buka-modul" data-target="view-modul-ebook">
@@ -322,37 +380,66 @@
         </section>
     </div>
 
+    <!-- VIEW DAFTAR BERITA / KELAS BERSAMA -->
+    <div id="view-berita-list" class="page-view">
+        <div class="berita-page-container">
+            <h2 class="section-title"><i class="fas fa-newspaper"></i> Berita &amp; Kelas Bersama</h2>
+            <p class="section-subtitle">Informasi jadwal dan pendaftaran kelas bersama serta pengumuman literasi perpustakaan.</p>
+            <div class="berita-grid" id="berita-list-container">
+                <!-- Data berita dimuat dinamis dari database -->
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW DETAIL BACA BERITA FULL -->
+    <div id="view-detail-berita" class="page-view">
+        <div class="berita-container-full" id="content-detail-berita">
+            <!-- Isi berita detail dimuat dinamis -->
+        </div>
+    </div>
+
     <!-- VIEW MODUL-MODUL BELAJAR -->
     <div id="view-modul-jurnal" class="page-view">
-        <header class="modul-header"><h1>Referensi Artikel Jurnal</h1></header>
+        <header class="modul-header">
+        <img src="https://i.imgur.com/sbCHsVE.jpeg" alt="Banner Referensi Artikel Jurnal"></header>
+        <div class="sub-nav-container" id="sub-nav-jurnal">
+            <button class="sub-tab-btn active" onclick="filterSubModul('jurnal', 'all', this)"><i class="fas fa-th-list"></i> Semua Jurnal</button>
+            <button class="sub-tab-btn" onclick="filterSubModul('jurnal', 'wiley', this)"><i class="fas fa-book-reader"></i> Wiley Online Library</button>
+            <button class="sub-tab-btn" onclick="filterSubModul('jurnal', 'proquest', this)"><i class="fas fa-globe"></i> ProQuest E-Journals</button>
+        </div>
         <div class="modul-container">
             <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-jurnal"></ul></aside>
             <main class="main-content" id="content-jurnal"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
+
     <div id="view-modul-ebook" class="page-view">
-        <header class="modul-header"><h1>E-Book dan E-Library</h1></header>
+        <header class="modul-header">
+        <img src="https://i.imgur.com/hmi7H45.jpeg" alt="Banner E-Book dan E-Library"></header>
         <div class="modul-container">
             <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-ebook"></ul></aside>
             <main class="main-content" id="content-ebook"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
     <div id="view-modul-referensi" class="page-view">
-        <header class="modul-header"><h1>Manajemen Referensi</h1></header>
+        <header class="modul-header">
+        <img src="https://i.imgur.com/9GyZYj4.jpeg" alt="Banner Manajemen Referensi"></header>
         <div class="modul-container">
             <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-referensi"></ul></aside>
             <main class="main-content" id="content-referensi"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
     <div id="view-modul-katalog" class="page-view">
-        <header class="modul-header"><h1>Katalog Perpustakaan</h1></header>
+        <header class="modul-header">
+        <img src="https://i.imgur.com/gu9WuoZ.jpeg" alt="Banner Katalog Perpustakaan"></header>
         <div class="modul-container">
             <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-katalog"></ul></aside>
             <main class="main-content" id="content-katalog"><h2>Pilih Materi di Sidebar</h2></main>
         </div>
     </div>
     <div id="view-modul-repositori" class="page-view">
-        <header class="modul-header"><h1>Repositori Polkesma</h1></header>
+        <header class="modul-header">
+        <img src="https://i.imgur.com/4wVRFLB.jpeg" alt="Banner Repositori Polkesma"></header>
         <div class="modul-container">
             <aside class="sidebar"><h3>Daftar Materi</h3><ul class="menu-materi" id="list-materi-repositori"></ul></aside>
             <main class="main-content" id="content-repositori"><h2>Pilih Materi di Sidebar</h2></main>
@@ -381,16 +468,18 @@
                 <div class="admin-header">
                     <div>
                         <h2><i class="fas fa-user-cog"></i> Dashboard Control Superadmin</h2>
-                        <p style="font-size: 0.85rem; color: #666;">Kelola kunjungan, modul, materi Google Drive/YouTube, kuis &amp; rekap pemahaman.</p>
+                        <p style="font-size: 0.85rem; color: #666;">Kelola kunjungan, modul, materi, kuis, berita/kelas bersama, &amp; rekap pemahaman.</p>
                     </div>
                     <button id="btn-logout-admin" class="btn-sm btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
 
                 <div class="admin-nav">
-                    <button class="tab-btn active" onclick="switchAdminTab('tab-analytics', event)"><i class="fas fa-chart-line"></i> Analytics &amp; Rekap Kuis</button>
-                    <button class="tab-btn" onclick="switchAdminTab('tab-konsultasi', event)"><i class="far fa-calendar-alt"></i> Data Pengajuan Konsultasi</button>
-                    <button class="tab-btn" onclick="switchAdminTab('tab-materi', event)"><i class="fas fa-file-upload"></i> Upload Materi (Drive/Video)</button>
-                    <button class="tab-btn" onclick="switchAdminTab('tab-kuis', event)"><i class="fas fa-bolt"></i> Kelola Kuis Evaluasi</button>
+                    <button class="tab-btn active" onclick="switchAdminTab('tab-analytics', event)"><i class="fas fa-chart-line"></i> Analytics &amp; Rekap</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-konsultasi', event)"><i class="far fa-calendar-alt"></i> Data Konsultasi</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-materi', event)"><i class="fas fa-file-upload"></i> Upload Materi</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-kuis', event)"><i class="fas fa-bolt"></i> Kelola Kuis</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-berita', event)"><i class="fas fa-newspaper"></i> Kelola Berita</button>
+                    <button class="tab-btn" onclick="switchAdminTab('tab-chatbot', event)"><i class="fas fa-robot"></i> Kelola Chatbot</button>
                 </div>
 
                 <!-- TAB 0: DASHBOARD ANALYTICS & REKAP KUIS -->
@@ -459,12 +548,13 @@
                                         <th>Status</th>
                                         <th>Asal / Instansi / Prodi</th>
                                         <th>Modul Kuis</th>
+                                        <th>Sub-Menu</th>
                                         <th>Skor Perolehan</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-rekap-kuis-body">
                                     <tr>
-                                        <td colspan="6" style="text-align: center;">Memuat rekap data kuis...</td>
+                                        <td colspan="7" style="text-align: center;">Memuat rekap data kuis...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -503,7 +593,7 @@
                             <input type="hidden" id="materi-edit-id">
                             <div class="form-group">
                                 <label>Pilih Modul Tujuan</label>
-                                <select id="materi-target-modul" class="form-control" required>
+                                <select id="materi-target-modul" class="form-control" required onchange="toggleSubcategoryOption('materi')">
                                     <option value="jurnal">Referensi Artikel Jurnal</option>
                                     <option value="ebook">E-Book dan E-Library</option>
                                     <option value="referensi">Manajemen Referensi</option>
@@ -511,6 +601,16 @@
                                     <option value="repositori">Repositori Polkesma</option>
                                 </select>
                             </div>
+                            
+                            <div class="form-group" id="group-materi-submodul">
+                                <label>Pilih Sub-Menu / Database (Khusus Modul Jurnal)</label>
+                                <select id="materi-target-submodul" class="form-control">
+                                    <option value="umum">Umum / Semua Database</option>
+                                    <option value="wiley">Wiley Online Library</option>
+                                    <option value="proquest">ProQuest E-Journals</option>
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Judul Materi</label>
                                 <input type="text" id="materi-judul" class="form-control" required>
@@ -518,7 +618,6 @@
                             <div class="form-group">
                                 <label>URL Google Drive (PDF) ATAU Video YouTube</label>
                                 <input type="url" id="materi-video-url" class="form-control" placeholder="Link Google Drive PDF (misal: drive.google.com/file/d/...) ATAU YouTube">
-                                <small style="color:#666;">*Sistem otomatis mendeteksi apakah link berupa Google Drive PDF atau Video YouTube.</small>
                             </div>
                             <div class="form-group">
                                 <label>Teks Materi / Deskripsi Panduan</label>
@@ -536,6 +635,7 @@
                                 <thead>
                                     <tr>
                                         <th>Modul</th>
+                                        <th>Sub-Menu</th>
                                         <th>Judul Materi</th>
                                         <th>Media Attached</th>
                                         <th>Aksi</th>
@@ -555,7 +655,7 @@
                             <input type="hidden" id="kuis-edit-id">
                             <div class="form-group">
                                 <label>Kategori Modul</label>
-                                <select id="kuis-target-modul" class="form-control" required>
+                                <select id="kuis-target-modul" class="form-control" required onchange="toggleSubcategoryOption('kuis')">
                                     <option value="jurnal">Referensi Artikel Jurnal</option>
                                     <option value="ebook">E-Book dan E-Library</option>
                                     <option value="referensi">Manajemen Referensi</option>
@@ -564,6 +664,15 @@
                                 </select>
                             </div>
                             
+                            <div class="form-group" id="group-kuis-submodul">
+                                <label>Pilih Sub-Menu Kuis (Khusus Modul Jurnal)</label>
+                                <select id="kuis-target-submodul" class="form-control">
+                                    <option value="umum">Umum / Semua Database</option>
+                                    <option value="wiley">Wiley Online Library</option>
+                                    <option value="proquest">ProQuest E-Journals</option>
+                                </select>
+                            </div>
+
                             <div class="form-group" id="box-bulk-kuis">
                                 <label>Format Input Teks Soal:</label>
                                 <textarea id="kuis-bulk-text" class="form-control" rows="6" placeholder="1. Apa kepanjangan dari OPAC?&#10;A. Online Public Access Catalog&#10;B. Open Public Access Center&#10;KUNCI: A"></textarea>
@@ -596,6 +705,7 @@
                                 <thead>
                                     <tr>
                                         <th>Modul</th>
+                                        <th>Sub-Menu</th>
                                         <th>Pertanyaan</th>
                                         <th>Kunci</th>
                                         <th>Aksi</th>
@@ -606,6 +716,98 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- TAB KELOLA BERITA / KELAS BERSAMA (ADMIN - DISESUAIKAN DENGAN GAMBAR) -->
+                <div id="tab-berita" class="admin-tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3 id="form-berita-title" style="margin-bottom: 20px;">Posting Berita / Kelas Bersama Baru</h3>
+                        <form id="form-upload-berita">
+                            <input type="hidden" id="berita-edit-id">
+                            
+                            <div class="form-group">
+                                <label>Judul Berita / Kelas Bersama</label>
+                                <input type="text" id="berita-judul" class="form-control" placeholder="Contoh: Kelas Bersama Pemanfaatan E-Journal Wiley" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal &amp; Waktu Pelaksanaan / Publikasi</label>
+                                <input type="text" id="berita-tanggal-waktu" class="form-control" placeholder="Contoh: Senin, 20 Juli 2026 (Pukul 09.00 WIB)" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Link Pendaftaran / Informasi Pendukung (Opsional)</label>
+                                <input type="url" id="berita-link" class="form-control" placeholder="https://zoom.us/... atau link form pendaftaran">
+                            </div>
+
+                            <div class="form-group">
+                                <label>URL Banner / Poster Gambar</label>
+                                <input type="url" id="berita-image-url" class="form-control" placeholder="https://i.imgur.com/..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Isi Konten Berita / Deskripsi</label>
+                                <textarea id="berita-isi" class="form-control" rows="6" placeholder="Tuliskan detail informasi kelas bersama di sini..." required></textarea>
+                            </div>
+
+                            <button type="submit" id="btn-submit-berita" class="btn-submit"><i class="fas fa-paper-plane"></i> Publikasikan Berita</button>
+                            <button type="button" id="btn-batal-berita" class="btn-submit" style="background:#666; display:none; margin-top:5px;" onclick="resetFormBerita()">Batal Edit</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Daftar Berita &amp; Kelas Bersama Terpublikasi</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Posting</th>
+                                        <th>Judul Berita</th>
+                                        <th>Waktu Acara</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-berita-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: KELOLA CHATBOT -->
+                <div id="tab-chatbot" class="admin-tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3 id="form-chatbot-title">Tambah Opsi Tanya-Jawab Chatbot</h3>
+                        <form id="form-chatbot" style="margin-top: 15px;">
+                            <input type="hidden" id="chatbot-edit-id">
+                            <div class="form-group">
+                                <label>Opsi Pertanyaan dari User</label>
+                                <input type="text" id="chatbot-tanya" class="form-control" placeholder="Contoh: Bagaimana cara pinjam buku?" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Balasan Jawaban Bot</label>
+                                <textarea id="chatbot-jawab" class="form-control" rows="4" placeholder="Silakan datang ke sirkulasi dengan membawa KTM..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Simpan Q&A Chatbot</button>
+                            <button type="button" id="btn-batal-chatbot" class="btn-submit" style="background:#666; display:none; margin-top:5px;" onclick="resetFormChatbot()">Batal Edit</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Daftar Q&A Terpasang</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 35%;">Pertanyaan</th>
+                                        <th style="width: 50%;">Jawaban</th>
+                                        <th style="width: 15%;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-chatbot-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -646,7 +848,6 @@
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="tutupModal('modal-pengumuman-jadwal')"></i>
             <h3 style="color: var(--primary);"><i class="far fa-calendar-check"></i> Pengumuman Jadwal Konsultasi Tatap Maya</h3>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Daftar pemohon yang disetujui beserta jadwal &amp; link konsultasi.</p>
             <div id="container-jadwal-publik"></div>
         </div>
     </div>
@@ -657,8 +858,8 @@
             <i class="fas fa-times close-modal" onclick="tutupModal('modal-konsultasi')"></i>
             <h3>Hubungi Layanan Bantuan</h3>
             <div class="consult-options">
-                <a href="https://wa.me/6285235909560" target="_blank" class="btn-consult btn-wa"><i class="fab fa-whatsapp"></i> Tanya Langsung via WhatsApp</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7GFm8mdJeGK8edgmU61MYPvYub7kNn0tYzDK2WZQliCk58A/viewform?usp=dialog" target="_blank" class="btn-consult btn-form"><i class="fas fa-file-alt"></i> Tanya via Google Form</a>
+                <a href="https://wa.me/6285235909560" target="_blank" rel="noopener noreferrer" class="btn-consult btn-wa"><i class="fab fa-whatsapp"></i> Tanya Langsung via WhatsApp</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7GFm8mdJeGK8edgmU61MYPvYub7kNn0tYzDK2WZQliCk58A/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-consult btn-form"><i class="fas fa-file-alt"></i> Tanya via Google Form</a>
                 <button class="btn-consult btn-jadwal" id="btn-buka-form-jadwal">
                     <div><i class="far fa-calendar-alt"></i> Buat Pengajuan Jadwal Konsultasi</div>
                 </button>
@@ -719,8 +920,27 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 PILAR - Pusat Informasi, Literasi, Akses Digital, dan Referensi Akademik [v1.1.0]</p>
+        <p>&copy; 2026 PILAR - Pusat Informasi, Literasi, Akses Digital, dan Referensi Akademik [v1.4.1]</p>
     </footer>
+
+    <!-- WIDGET CHATBOT USER-FACING -->
+    <div class="chat-widget-btn" onclick="toggleChatWindow()">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <span><i class="fas fa-robot"></i> Asisten PILAR</span>
+            <i class="fas fa-times close-chat" onclick="toggleChatWindow()"></i>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-msg bot-msg">Halo! Ada yang bisa saya bantu terkait layanan atau informasi E-Resources Polkesma? Silakan pilih pertanyaan di bawah ini.</div>
+        </div>
+        <div class="chat-footer" id="chat-options-container">
+            <!-- Pilihan pertanyaan dimuat dari firebase -->
+        </div>
+    </div>
+
 
     <!-- JAVASCRIPT LOGICAL IMPLEMENTATION -->
     <script>
@@ -747,8 +967,11 @@
         const dbKuis = db.ref('pilar_kuis');
         const dbKunjungan = db.ref('pilar_kunjungan');
         const dbHasilKuis = db.ref('pilar_hasil_kuis');
+        const dbChatbot = db.ref('pilar_chatbot');
+        const dbBerita = db.ref('pilar_berita');
 
         let activeYtPlayer = null;
+        let activeSubModul = { jurnal: 'all', ebook: 'all', referensi: 'all', katalog: 'all', repositori: 'all' };
 
         (function catatKunjungan() {
             const visitedKey = 'pilar_visited_' + new Date().toISOString().slice(0,10);
@@ -762,6 +985,72 @@
             }
         })();
 
+        // Navigasi Klik Menu Berita di Navbar Atas
+        document.getElementById('nav-menu-berita').addEventListener('click', () => {
+            sembunyikanSemuaHalaman();
+            document.getElementById('view-berita-list').classList.add('active');
+            updatePageHistory('view-berita-list');
+            btnKembali.style.display = 'flex';
+            window.scrollTo(0, 0);
+            renderBeritaListUser();
+        });
+
+        function renderBeritaListUser() {
+            const container = document.getElementById('berita-list-container');
+            if (!container) return;
+            dbBerita.on('value', (snapshot) => {
+                container.innerHTML = '';
+                const data = snapshot.val();
+                if (!data) {
+                    container.innerHTML = '<p style="color:#888; grid-column: 1/-1; text-align:center;">Belum ada postingan kelas bersama atau berita tersedia.</p>';
+                    return;
+                }
+                Object.values(data).reverse().forEach(item => {
+                    const snippet = (item.isi || '').substring(0, 110) + '...';
+                    const linkActionHTML = item.linkUrl ? `<a href="${escapeHTML(item.linkUrl)}" target="_blank" rel="noopener noreferrer" class="btn-external-link"><i class="fas fa-link"></i> Link Pendaftaran</a>` : '';
+                    
+                    container.innerHTML += `
+                        <div class="berita-card">
+                            <img src="${escapeHTML(item.imageUrl)}" class="berita-img" alt="Banner Kelas Bersama">
+                            <div class="berita-body">
+                                <div class="berita-date"><i class="far fa-calendar-alt"></i> ${escapeHTML(item.waktuAcara || item.tanggal || 'Terbaru')}</div>
+                                <h3 class="berita-title">${escapeHTML(item.judul)}</h3>
+                                <p class="berita-snippet">${escapeHTML(snippet)}</p>
+                                <div class="berita-link-action">
+                                    <button class="btn-read-berita" onclick="bukaDetailBerita('${item.id}')">Baca Selengkapnya <i class="fas fa-arrow-right"></i></button>
+                                    ${linkActionHTML}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        window.bukaDetailBerita = (id) => {
+            dbBerita.child(id).once('value', (snap) => {
+                const b = snap.val();
+                if (!b) return;
+                sembunyikanSemuaHalaman();
+                const viewDetail = document.getElementById('view-detail-berita');
+                viewDetail.classList.add('active');
+                updatePageHistory('view-detail-berita');
+                btnKembali.style.display = 'flex';
+                window.scrollTo(0, 0);
+
+                const linkActionFullHTML = b.linkUrl ? `<div style="margin: 20px 0;"><a href="${escapeHTML(b.linkUrl)}" target="_blank" rel="noopener noreferrer" class="btn-external-link" style="padding: 10px 20px; font-size:1rem;"><i class="fas fa-external-link-alt"></i> Buka Link Pendaftaran / Informasi Pendukung</a></div>` : '';
+
+                const contentContainer = document.getElementById('content-detail-berita');
+                contentContainer.innerHTML = `
+                    <div style="font-size:0.85rem; color:var(--primary); font-weight:600; margin-bottom:10px;"><i class="far fa-clock"></i> Pelaksanaan: ${escapeHTML(b.waktuAcara || b.tanggal)}</div>
+                    <h1 style="color:var(--text-dark); margin-bottom:15px; font-size:2rem;">${escapeHTML(b.judul)}</h1>
+                    <img src="${escapeHTML(b.imageUrl)}" class="berita-full-img" alt="Banner Kelas Bersama">
+                    ${linkActionFullHTML}
+                    <div class="berita-full-content">${escapeHTML(b.isi).replace(/\n/g, '<br>')}</div>
+                `;
+            });
+        };
+
         function extractYouTubeId(url) {
             if (!url) return null;
             let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -771,22 +1060,15 @@
 
         function parseMediaUrl(url) {
             if (!url) return { type: 'none' };
-            
             const ytId = extractYouTubeId(url);
-            if (ytId) {
-                return { type: 'youtube', id: ytId };
-            }
+            if (ytId) return { type: 'youtube', id: ytId };
 
             if (url.includes('drive.google.com')) {
                 let previewUrl = url;
-                if (url.includes('/view')) {
-                    previewUrl = url.replace(/\/view.*$/, '/preview');
-                } else if (!url.endsWith('/preview')) {
-                    previewUrl = url.replace(/\?usp=.*$/, '') + '/preview';
-                }
+                if (url.includes('/view')) previewUrl = url.replace(/\/view.*$/, '/preview');
+                else if (!url.endsWith('/preview')) previewUrl = url.replace(/\?usp=.*$/, '') + '/preview';
                 return { type: 'gdrive', url: previewUrl };
             }
-
             return { type: 'none' };
         }
 
@@ -798,9 +1080,34 @@
         const navMenu = document.getElementById('nav-menu');
         const navToggle = document.getElementById('nav-toggle');
 
-        if (navToggle) {
-            navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+        /* === HISTORY API (BACK BROWSER FIX) === */
+        function updatePageHistory(viewId) {
+            if (viewId === 'view-home') {
+                if (window.location.hash) history.pushState({view: viewId}, "", window.location.pathname);
+            } else {
+                history.pushState({view: viewId}, "", "#" + viewId);
+            }
         }
+
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.view) {
+                sembunyikanSemuaHalaman();
+                const view = document.getElementById(event.state.view);
+                if (view) {
+                    view.classList.add('active');
+                    if (event.state.view === 'view-home') {
+                        btnKembali.style.display = 'none';
+                    } else {
+                        btnKembali.style.display = 'flex';
+                    }
+                }
+            } else {
+                kembaliKeBeranda();
+            }
+        });
+
+
+        if (navToggle) navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
         function sembunyikanSemuaHalaman() {
             semuaView.forEach(view => view.classList.remove('active'));
@@ -817,10 +1124,9 @@
                 const targetView = document.getElementById(targetId);
                 if (targetView) {
                     sembunyikanSemuaHalaman();
-                    targetView.classList.add('active'); 
+                    targetView.classList.add('active'); updatePageHistory(targetId); 
                     btnKembali.style.display = 'flex'; 
                     window.scrollTo(0, 0); 
-                    
                     const key = targetId.replace('view-modul-', '');
                     renderMateriModulUser(key);
                 }
@@ -833,7 +1139,6 @@
             btnKembali.style.display = 'none'; 
             window.scrollTo(0, 0);
         }
-
         btnKembali.addEventListener('click', kembaliKeBeranda);
 
         let clickCount = 0;
@@ -841,15 +1146,12 @@
         logoBrand.addEventListener('click', () => {
             clickCount++;
             if (clickTimer) clearTimeout(clickTimer);
-            
             if (clickCount >= 5) {
                 clickCount = 0;
                 bukaPortalAdmin();
             } else {
                 clickTimer = setTimeout(() => {
-                    if (clickCount < 5) {
-                        kembaliKeBeranda();
-                    }
+                    if (clickCount < 5) kembaliKeBeranda();
                     clickCount = 0;
                 }, 1000);
             }
@@ -857,22 +1159,19 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.shiftKey && (event.key === '`' || event.key === '~' || event.code === 'Backquote')) {
-                event.preventDefault();
-                bukaPortalAdmin();
+                event.preventDefault(); bukaPortalAdmin();
             }
         });
 
         function bukaPortalAdmin() {
             sembunyikanSemuaHalaman();
-            viewSuperadmin.classList.add('active');
+            viewSuperadmin.classList.add('active'); updatePageHistory('view-superadmin');
             btnKembali.style.display = 'flex';
             window.scrollTo(0, 0);
             checkAdminSession();
         }
 
-        function tutupModal(idModal) {
-            document.getElementById(idModal).style.display = 'none';
-        }
+        function tutupModal(idModal) { document.getElementById(idModal).style.display = 'none'; }
 
         document.getElementById('nav-pengumuman-jadwal').addEventListener('click', () => {
             renderPengumumanJadwalPublik();
@@ -881,7 +1180,6 @@
 
         document.querySelectorAll('.btn-buka-konsultasi').forEach(item => {
             item.addEventListener('click', function() {
-                // Kode untuk membuka modal / form konsultasi kamu
                 const modal = document.getElementById('modal-konsultasi');
                 if (modal) modal.style.display = 'flex';
             });
@@ -932,7 +1230,7 @@
                                 <div style="font-size:0.85rem; color:#666; margin:5px 0 10px 0;">
                                     <i class="far fa-clock"></i> <b>Waktu Tatap Maya:</b> ${escapeHTML(item.waktuTatapMaya)}
                                 </div>
-                                <a href="${escapeHTML(item.linkMeeting)}" target="_blank" style="display:inline-block; padding:6px 14px; background:#2D8CFF; color:white; border-radius:6px; font-size:0.85rem; font-weight:600; text-decoration:none;"><i class="fas fa-video"></i> Masuk Link Tatap Maya</a>
+                                <a href="${escapeHTML(item.linkMeeting)}" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:6px 14px; background:#2D8CFF; color:white; border-radius:6px; font-size:0.85rem; font-weight:600; text-decoration:none;"><i class="fas fa-video"></i> Masuk Link Tatap Maya</a>
                             </div>
                         `;
                     }
@@ -941,9 +1239,18 @@
             });
         }
 
+        window.filterSubModul = function(modulKey, subKey, btnElem) {
+            activeSubModul[modulKey] = subKey;
+            const parent = btnElem.parentElement;
+            parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+            btnElem.classList.add('active');
+            renderMateriModulUser(modulKey);
+        };
+
         function renderMateriModulUser(key) {
             const listElem = document.getElementById(`list-materi-${key}`);
             const mainElem = document.getElementById(`content-${key}`);
+            const currentSub = activeSubModul[key] || 'all';
 
             dbMateri.on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -955,15 +1262,20 @@
                     return;
                 }
 
-                const filtered = Object.values(data).filter(m => m.modulKey === key);
+                const filtered = Object.values(data).filter(m => {
+                    if (m.modulKey !== key) return false;
+                    if (currentSub === 'all') return true;
+                    return (m.submodulKey || 'umum') === currentSub;
+                });
 
                 if (filtered.length === 0) {
                     listElem.innerHTML = '<li><a href="#">Belum ada materi</a></li>';
-                    mainElem.innerHTML = '<h2>Materi Belum Tersedia</h2>';
+                    mainElem.innerHTML = '<h2>Materi Belum Tersedia untuk Kategori Ini</h2>';
                 } else {
                     filtered.forEach((m, index) => {
+                        const subBadge = m.submodulKey && m.submodulKey !== 'umum' ? ` <small style="color:var(--primary);">[${m.submodulKey.toUpperCase()}]</small>` : '';
                         const li = document.createElement('li');
-                        li.innerHTML = `<a href="#" class="${index === 0 ? 'active' : ''}"><i class="fas fa-file-alt"></i> ${escapeHTML(m.judul)}</a>`;
+                        li.innerHTML = `<a href="#" class="${index === 0 ? 'active' : ''}"><i class="fas fa-file-alt"></i> ${escapeHTML(m.judul)}${subBadge}</a>`;
                         li.addEventListener('click', (e) => {
                             e.preventDefault();
                             document.querySelectorAll(`#list-materi-${key} a`).forEach(a => a.classList.remove('active'));
@@ -977,6 +1289,7 @@
             });
         }
 
+        /* FUNGSI TAMPILKAN MATERI - DENGAN SLIDER BUKU */
         function tampilkanDetailMateri(targetContainer, materi, key) {
             let mediaHTML = '';
             const parsedMedia = parseMediaUrl(materi.videoUrl);
@@ -1002,22 +1315,29 @@
 
             dbKuis.once('value', (snapshot) => {
                 const dataKuis = snapshot.val() || {};
-                const kuisModul = Object.values(dataKuis).filter(k => k.modulKey === key);
+                const currentSub = activeSubModul[key] || 'all';
+
+                const kuisModul = Object.values(dataKuis).filter(k => {
+                    if (k.modulKey !== key) return false;
+                    if (currentSub === 'all') return true;
+                    return (k.submodulKey || 'umum') === currentSub;
+                });
 
                 let kuisHTML = '';
                 if (kuisModul.length > 0) {
+                    const subLabel = currentSub !== 'all' ? ` (${currentSub.toUpperCase()})` : '';
                     kuisHTML = `
                         <div class="kuis-lock-box" id="lock-box-${key}">
                             <i class="fas fa-lock" style="font-size:2rem; color:#888; margin-bottom:10px;"></i>
                             <h4 id="lock-title-${key}">Materi Kuis Terkunci</h4>
-                            <p style="font-size:0.85rem; color:#666;" id="lock-desc-${key}">Gulir / Baca seluruh materi di atas hingga bagian paling bawah untuk membuka Kuis Evaluasi.</p>
+                            <p style="font-size:0.85rem; color:#666;" id="lock-desc-${key}">Geser lembaran bacaan slide di atas hingga halaman terakhir untuk membuka Kuis Evaluasi.</p>
                             <button class="btn-submit" id="btn-unlock-kuis-${key}" style="margin-top:15px;" disabled onclick="bukaFormKuis('${key}')">
                                 <i class="fas fa-key"></i> Kuis Siap Dikerjakan (Klik untuk Membuka)
                             </button>
                         </div>
 
                         <div class="kuis-box" id="box-kuis-content-${key}" style="display:none;">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Soal Kuis Evaluasi Pemahaman</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Soal Kuis Evaluasi Pemahaman${subLabel}</h3>
                             ${kuisModul.map((q, idx) => `
                                 <div class="kuis-item" id="kuis-card-${q.id}">
                                     <p>${idx + 1}. ${escapeHTML(q.pertanyaan)}</p>
@@ -1035,42 +1355,93 @@
                     `;
                 }
 
+                // === LOGIKA PEMBAGIAN HALAMAN TEKS (SLIDER) ===
+                const safeText = escapeHTML(materi.deskripsi || '');
+                const paragraphs = safeText.split(/\r?\n/).filter(p => p.trim() !== '');
+                const pages = [];
+                let currentPage = [];
+                let currentLength = 0;
+                const MAX_LENGTH = 800; // maksimal karakter per slide halaman
+
+                for (let i = 0; i < paragraphs.length; i++) {
+                    const p = paragraphs[i];
+                    if (currentLength + p.length > MAX_LENGTH && currentPage.length > 0) {
+                        pages.push(currentPage.join('<br><br>'));
+                        currentPage = [p];
+                        currentLength = p.length;
+                    } else {
+                        currentPage.push(p);
+                        currentLength += p.length;
+                    }
+                }
+                if (currentPage.length > 0) {
+                    pages.push(currentPage.join('<br><br>'));
+                }
+                if (pages.length === 0) pages.push('Materi teks tidak tersedia.');
+
+                window.bookStates = window.bookStates || {};
+                window.bookStates[key] = { currentIndex: 0, total: pages.length };
+
+                let bookHTML = `
+                    <div class="book-container" id="book-container-${key}">
+                        <div class="book-slider" id="book-slider-${key}">
+                            ${pages.map((page, index) => `
+                                <div class="book-page">
+                                    <div class="book-page-content">${page}</div>
+                                    <div class="book-page-footer">Halaman ${index + 1} dari ${pages.length}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="book-controls">
+                            <button class="btn-book" id="btn-prev-${key}" onclick="geserBuku('${key}', -1)" disabled><i class="fas fa-chevron-left"></i> Sebelumnya</button>
+                            <button class="btn-book" id="btn-next-${key}" onclick="geserBuku('${key}', 1)" ${pages.length <= 1 ? 'disabled' : ''}>Selanjutnya <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                `;
+
                 targetContainer.innerHTML = `
-                    <div class="reading-notice"><i class="fas fa-info-circle"></i> Bacalah seluruh modul ini hingga bagian bawah untuk dapat membuka Kuis Evaluasi.</div>
+                    <div class="reading-notice"><i class="fas fa-info-circle"></i> Geser/baca slide materi lembaran di bawah ini untuk membuka Kuis Evaluasi.</div>
                     <h2>${escapeHTML(materi.judul)}</h2>
                     ${mediaHTML}
-                    <div class="content-text" id="materi-text-body-${key}" style="white-space: pre-line; line-height: 1.8; margin-bottom: 30px;">${escapeHTML(materi.deskripsi)}</div>
-                    <div id="bottom-trigger-${key}"></div>
+                    ${bookHTML}
                     ${kuisHTML}
                 `;
 
-                if (kuisModul.length > 0) {
-                    initReadToUnlockDetector(key);
+                if (kuisModul.length > 0 && pages.length <= 1) {
+                    unlockQuiz(key);
                 }
             });
         }
 
-        function initReadToUnlockDetector(key) {
-            const bottomTrigger = document.getElementById(`bottom-trigger-${key}`);
+        window.geserBuku = function(key, direction) {
+            const state = window.bookStates[key];
+            state.currentIndex += direction;
+            
+            if (state.currentIndex <= 0) state.currentIndex = 0;
+            if (state.currentIndex >= state.total - 1) {
+                state.currentIndex = state.total - 1;
+                unlockQuiz(key);
+            }
+
+            const slider = document.getElementById(`book-slider-${key}`);
+            slider.style.transform = `translateX(-${state.currentIndex * 100}%)`;
+
+            document.getElementById(`btn-prev-${key}`).disabled = (state.currentIndex === 0);
+            document.getElementById(`btn-next-${key}`).disabled = (state.currentIndex === state.total - 1);
+        };
+
+        window.unlockQuiz = function(key) {
             const btnUnlock = document.getElementById(`btn-unlock-kuis-${key}`);
             const lockBox = document.getElementById(`lock-box-${key}`);
             const lockTitle = document.getElementById(`lock-title-${key}`);
 
-            if (!bottomTrigger || !btnUnlock) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        btnUnlock.disabled = false;
-                        btnUnlock.style.backgroundColor = "var(--primary)";
-                        lockBox.classList.add('unlocked');
-                        lockTitle.innerHTML = '<i class="fas fa-unlock" style="color:var(--success);"></i> Anda Telah Selesai Membaca!';
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            observer.observe(bottomTrigger);
-        }
+            if (btnUnlock && btnUnlock.disabled) {
+                btnUnlock.disabled = false;
+                btnUnlock.style.backgroundColor = "var(--primary)";
+                lockBox.classList.add('unlocked');
+                lockTitle.innerHTML = '<i class="fas fa-unlock" style="color:var(--success);"></i> Anda Telah Selesai Membaca!';
+            }
+        };
 
         window.bukaFormKuis = (key) => {
             document.getElementById(`box-kuis-content-${key}`).style.display = 'block';
@@ -1088,45 +1459,36 @@
             const nama = document.getElementById('quiz-user-nama').value;
             const status = document.getElementById('quiz-user-status').value;
             const asal = document.getElementById('quiz-user-asal').value;
+            const currentSub = activeSubModul[key] || 'umum';
 
             dbKuis.once('value', (snapshot) => {
                 const dataKuis = snapshot.val() || {};
-                const kuisModul = Object.values(dataKuis).filter(k => k.modulKey === key);
+                const kuisModul = Object.values(dataKuis).filter(k => {
+                    if (k.modulKey !== key) return false;
+                    if (currentSub === 'all') return true;
+                    return (k.submodulKey || 'umum') === currentSub;
+                });
                 
                 let benar = 0;
                 kuisModul.forEach(q => {
                     const card = document.getElementById(`kuis-card-${q.id}`);
                     const selected = document.querySelector(`input[name="kuis_${q.id}"]:checked`);
-                    
                     if (card) {
                         const labels = card.querySelectorAll('.kuis-option-label');
                         labels.forEach(l => {
                             l.classList.remove('opt-correct', 'opt-wrong');
                             const optValue = l.getAttribute('data-opt');
-                            
-                            if (optValue === q.kunci) {
-                                l.classList.add('opt-correct');
-                            } else if (selected && selected.value === optValue && optValue !== q.kunci) {
-                                l.classList.add('opt-wrong');
-                            }
+                            if (optValue === q.kunci) l.classList.add('opt-correct');
+                            else if (selected && selected.value === optValue && optValue !== q.kunci) l.classList.add('opt-wrong');
                         });
                     }
-
-                    if (selected && selected.value.toUpperCase() === q.kunci) {
-                        benar++;
-                    }
+                    if (selected && selected.value.toUpperCase() === q.kunci) benar++;
                 });
 
                 const nilai = Math.round((benar / (kuisModul.length || 1)) * 100);
 
                 dbHasilKuis.push({
-                    nama, status, asal,
-                    modulKey: key,
-                    skor: nilai,
-                    benar,
-                    totalSoal: kuisModul.length,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    tanggal: new Date().toLocaleDateString('id-ID') + ' ' + new Date().toLocaleTimeString('id-ID')
+                    nama, status, asal, modulKey: key, submodulKey: currentSub, skor: nilai, benar, totalSoal: kuisModul.length, timestamp: firebase.database.ServerValue.TIMESTAMP, tanggal: new Date().toLocaleDateString('id-ID') + ' ' + new Date().toLocaleTimeString('id-ID')
                 }).then(() => {
                     tutupModal('modal-identitas-kuis');
                     alert(`Terima kasih ${nama} (${status})!\nJawaban Anda berhasil disimpan.\n\nSkor Evaluasi Kuis Anda: ${nilai} / 100\nBenar: ${benar} dari ${kuisModul.length} soal.`);
@@ -1141,29 +1503,20 @@
             e.preventDefault();
             if (document.getElementById('login-username').value === 'admin' && 
                 document.getElementById('login-password').value === 'admin123') {
-                sessionStorage.setItem('is_admin', 'true');
-                checkAdminSession();
-            } else {
-                alert('Username/Password Admin Salah!');
-            }
+                sessionStorage.setItem('is_admin', 'true'); checkAdminSession();
+            } else alert('Username/Password Admin Salah!');
         });
 
         document.getElementById('btn-logout-admin').addEventListener('click', () => {
-            sessionStorage.removeItem('is_admin');
-            checkAdminSession();
+            sessionStorage.removeItem('is_admin'); checkAdminSession();
         });
 
         function checkAdminSession() {
             if (sessionStorage.getItem('is_admin') === 'true') {
-                loginBox.style.display = 'none';
-                dashboardBox.style.display = 'block';
-                muatAnalyticsAdmin();
-                muatDataJadwalAdmin();
-                muatDataMateriAdmin();
-                muatDataKuisAdmin();
+                loginBox.style.display = 'none'; dashboardBox.style.display = 'block';
+                muatAnalyticsAdmin(); muatDataJadwalAdmin(); muatDataMateriAdmin(); muatDataKuisAdmin(); muatDataBeritaAdmin(); muatDataChatbotAdmin();
             } else {
-                loginBox.style.display = 'block';
-                dashboardBox.style.display = 'none';
+                loginBox.style.display = 'block'; dashboardBox.style.display = 'none';
             }
         }
 
@@ -1172,11 +1525,8 @@
 
         function muatAnalyticsAdmin() {
             dbKunjungan.on('value', (snap) => {
-                const data = snap.val();
-                globalVisitData = data ? Object.values(data) : [];
-                
-                hitungRingkasanKunjungan(globalVisitData);
-                updateChartFilter();
+                const data = snap.val(); globalVisitData = data ? Object.values(data) : [];
+                hitungRingkasanKunjungan(globalVisitData); updateChartFilter();
             });
 
             const tbodyKuis = document.getElementById('table-rekap-kuis-body');
@@ -1185,52 +1535,27 @@
                 const data = snap.val();
                 if (!data) {
                     document.getElementById('stat-total-quiz-user').innerText = '0';
-                    tbodyKuis.innerHTML = '<tr><td colspan="6" style="text-align:center;">Belum ada hasil kuis tersimpan.</td></tr>';
-                    return;
+                    tbodyKuis.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada hasil kuis tersimpan.</td></tr>'; return;
                 }
-
                 const list = Object.values(data).reverse();
                 document.getElementById('stat-total-quiz-user').innerText = list.length;
 
                 list.forEach(res => {
-                    tbodyKuis.innerHTML += `
-                        <tr>
-                            <td>${escapeHTML(res.tanggal)}</td>
-                            <td><b>${escapeHTML(res.nama)}</b></td>
-                            <td><span class="badge" style="margin:0;">${escapeHTML(res.status)}</span></td>
-                            <td>${escapeHTML(res.asal)}</td>
-                            <td>${escapeHTML((res.modulKey || '').toUpperCase())}</td>
-                            <td><b style="color:var(--primary); font-size:1.1rem;">${res.skor}</b> / 100</td>
-                        </tr>
-                    `;
+                    tbodyKuis.innerHTML += `<tr><td>${escapeHTML(res.tanggal)}</td><td><b>${escapeHTML(res.nama)}</b></td><td><span class="badge" style="margin:0;">${escapeHTML(res.status)}</span></td><td>${escapeHTML(res.asal)}</td><td>${escapeHTML((res.modulKey || '').toUpperCase())}</td><td><span class="badge" style="background:#e0f2f1; color:var(--primary); margin:0;">${escapeHTML((res.submodulKey || 'umum').toUpperCase())}</span></td><td><b style="color:var(--primary); font-size:1.1rem;">${res.skor}</b> / 100</td></tr>`;
                 });
             });
         }
 
         function hitungRingkasanKunjungan(visits) {
-            const now = Date.now();
-            const oneDayMs = 24 * 60 * 60 * 1000;
-            const todayStr = new Date().toLocaleDateString('id-ID');
-            
-            let countToday = 0;
-            let countWeek = 0;
-            let countMonth = 0;
+            const now = Date.now(), oneDayMs = 24 * 60 * 60 * 1000, todayStr = new Date().toLocaleDateString('id-ID');
+            let countToday = 0, countWeek = 0, countMonth = 0;
 
             visits.forEach(v => {
                 if (!v.timestamp) return;
-
-                const visitDate = new Date(v.timestamp);
-                const diffDays = (now - v.timestamp) / oneDayMs;
-
-                if (visitDate.toLocaleDateString('id-ID') === todayStr) {
-                    countToday++;
-                }
-                if (diffDays <= 7) {
-                    countWeek++;
-                }
-                if (diffDays <= 30) {
-                    countMonth++;
-                }
+                const visitDate = new Date(v.timestamp), diffDays = (now - v.timestamp) / oneDayMs;
+                if (visitDate.toLocaleDateString('id-ID') === todayStr) countToday++;
+                if (diffDays <= 7) countWeek++;
+                if (diffDays <= 30) countMonth++;
             });
 
             document.getElementById('stat-visits-today').innerText = countToday;
@@ -1240,83 +1565,36 @@
         }
 
         function updateChartFilter() {
-            const filter = document.getElementById('chart-filter').value;
-            const now = new Date();
-            let labels = [];
-            let counts = [];
-
+            const filter = document.getElementById('chart-filter').value, now = new Date();
+            let labels = [], counts = [];
             if (filter === '7days' || filter === '30days') {
                 const daysLimit = filter === '7days' ? 7 : 30;
-                
                 for (let i = daysLimit - 1; i >= 0; i--) {
-                    const d = new Date(now);
-                    d.setDate(d.getDate() - i);
-                    
-                    const dateKey = d.toLocaleDateString('id-ID');
-                    const labelText = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+                    const d = new Date(now); d.setDate(d.getDate() - i);
+                    const dateKey = d.toLocaleDateString('id-ID'), labelText = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
                     labels.push(labelText);
-                    
-                    const totalOnDay = globalVisitData.filter(v => {
-                        return v.timestamp && new Date(v.timestamp).toLocaleDateString('id-ID') === dateKey;
-                    }).length;
-
-                    counts.push(totalOnDay);
+                    counts.push(globalVisitData.filter(v => v.timestamp && new Date(v.timestamp).toLocaleDateString('id-ID') === dateKey).length);
                 }
             } else if (filter === '1year') {
                 for (let i = 11; i >= 0; i--) {
-                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                    const labelText = d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1), labelText = d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
                     labels.push(labelText);
-
-                    const totalOnMonth = globalVisitData.filter(v => {
+                    counts.push(globalVisitData.filter(v => {
                         if (!v.timestamp) return false;
                         const vDate = new Date(v.timestamp);
                         return vDate.getMonth() === d.getMonth() && vDate.getFullYear() === d.getFullYear();
-                    }).length;
-
-                    counts.push(totalOnMonth);
+                    }).length);
                 }
             }
-
             renderChart(labels, counts);
         }
 
         function renderChart(labels, dataPoints) {
             const ctx = document.getElementById('visitChart').getContext('2d');
-            
-            if (visitChartInstance) {
-                visitChartInstance.destroy();
-            }
-
+            if (visitChartInstance) visitChartInstance.destroy();
             visitChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Jumlah Kunjungan',
-                        data: dataPoints,
-                        borderColor: '#009B97',
-                        backgroundColor: 'rgba(0, 155, 151, 0.15)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#009B97'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { precision: 0 }
-                        }
-                    }
-                }
+                type: 'line', data: { labels: labels, datasets: [{ label: 'Jumlah Kunjungan', data: dataPoints, borderColor: '#009B97', backgroundColor: 'rgba(0, 155, 151, 0.15)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#009B97' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
             });
         }
 
@@ -1325,49 +1603,27 @@
             dbJadwal.on('value', (snapshot) => {
                 tbody.innerHTML = '';
                 const data = snapshot.val();
-                if (!data) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Belum ada pengajuan.</td></tr>';
-                    return;
-                }
+                if (!data) { tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Belum ada pengajuan.</td></tr>'; return; }
                 Object.values(data).forEach(item => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><b>${escapeHTML(item.nama)}</b></td>
-                            <td>${escapeHTML(item.statusSivitas)} / ${escapeHTML(item.institusi)}</td>
-                            <td><a href="https://wa.me/${escapeHTML(item.whatsapp)}" target="_blank">${escapeHTML(item.whatsapp)}</a></td>
-                            <td>${escapeHTML(item.statusPengajuan)}</td>
-                            <td>${escapeHTML(item.waktuTatapMaya)}</td>
-                            <td>${item.linkMeeting !== '#' ? `<a href="${escapeHTML(item.linkMeeting)}" target="_blank">Zoom</a>` : '-'}</td>
-                            <td>
-                                <button class="btn-sm btn-primary" onclick="bukaModalSetJadwal('${item.id}')">Set Zoom</button>
-                                <button class="btn-sm btn-danger" onclick="hapusJadwal('${item.id}')"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
+                    tbody.innerHTML += `<tr><td><b>${escapeHTML(item.nama)}</b></td><td>${escapeHTML(item.statusSivitas)} / ${escapeHTML(item.institusi)}</td><td><a href="https://wa.me/${escapeHTML(item.whatsapp)}" target="_blank">${escapeHTML(item.whatsapp)}</a></td><td>${escapeHTML(item.statusPengajuan)}</td><td>${escapeHTML(item.waktuTatapMaya)}</td><td>${item.linkMeeting !== '#' ? `<a href="${escapeHTML(item.linkMeeting)}" target="_blank">Zoom</a>` : '-'}</td><td><button class="btn-sm btn-primary" onclick="bukaModalSetJadwal('${item.id}')">Set Zoom</button> <button class="btn-sm btn-danger" onclick="hapusJadwal('${item.id}')"><i class="fas fa-trash"></i></button></td></tr>`;
                 });
             });
         }
 
-        window.bukaModalSetJadwal = (id) => {
-            document.getElementById('set-jadwal-id').value = id;
-            document.getElementById('modal-admin-set-jadwal').style.display = 'flex';
-        };
+        window.bukaModalSetJadwal = (id) => { document.getElementById('set-jadwal-id').value = id; document.getElementById('modal-admin-set-jadwal').style.display = 'flex'; };
 
         document.getElementById('form-admin-set-jadwal').addEventListener('submit', (e) => {
             e.preventDefault();
             const id = document.getElementById('set-jadwal-id').value;
-            dbJadwal.child(id).update({
-                statusPengajuan: 'Disetujui',
-                waktuTatapMaya: document.getElementById('set-jadwal-waktu').value,
-                linkMeeting: document.getElementById('set-jadwal-link').value
-            }).then(() => {
-                alert("Jadwal tatap maya disetujui!");
-                tutupModal('modal-admin-set-jadwal');
+            dbJadwal.child(id).update({ statusPengajuan: 'Disetujui', waktuTatapMaya: document.getElementById('set-jadwal-waktu').value, linkMeeting: document.getElementById('set-jadwal-link').value }).then(() => {
+                alert("Jadwal tatap maya disetujui!"); tutupModal('modal-admin-set-jadwal');
             });
         });
 
-        window.hapusJadwal = (id) => {
-            if (confirm("Hapus data pengajuan?")) dbJadwal.child(id).remove();
+        window.hapusJadwal = (id) => { if (confirm("Hapus data pengajuan?")) dbJadwal.child(id).remove(); };
+
+        window.toggleSubcategoryOption = function(type) {
+            document.getElementById(`group-${type}-submodul`).style.display = 'block'; 
         };
 
         function muatDataMateriAdmin() {
@@ -1375,27 +1631,13 @@
             dbMateri.on('value', (snapshot) => {
                 tbody.innerHTML = '';
                 const data = snapshot.val();
-                if (!data) {
-                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada materi.</td></tr>';
-                    return;
-                }
+                if (!data) { tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Belum ada materi.</td></tr>'; return; }
                 Object.values(data).forEach(m => {
                     const parsed = parseMediaUrl(m.videoUrl);
                     let mediaTypeLabel = '-';
                     if (parsed.type === 'youtube') mediaTypeLabel = '<i class="fab fa-youtube" style="color:red;"></i> YouTube';
                     if (parsed.type === 'gdrive') mediaTypeLabel = '<i class="fab fa-google-drive" style="color:green;"></i> Drive PDF';
-
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><span class="badge" style="margin:0;">${escapeHTML((m.modulKey || '').toUpperCase())}</span></td>
-                            <td><b>${escapeHTML(m.judul)}</b></td>
-                            <td>${mediaTypeLabel}</td>
-                            <td>
-                                <button class="btn-sm btn-primary" onclick="editMateri('${m.id}')"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm btn-danger" onclick="hapusMateri('${m.id}')"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
+                    tbody.innerHTML += `<tr><td><span class="badge" style="margin:0;">${escapeHTML((m.modulKey || '').toUpperCase())}</span></td><td><span class="badge" style="background:#e0f2f1; color:var(--primary); margin:0;">${escapeHTML((m.submodulKey || 'umum').toUpperCase())}</span></td><td><b>${escapeHTML(m.judul)}</b></td><td>${mediaTypeLabel}</td><td><button class="btn-sm btn-primary" onclick="editMateri('${m.id}')"><i class="fas fa-edit"></i></button> <button class="btn-sm btn-danger" onclick="hapusMateri('${m.id}')"><i class="fas fa-trash"></i></button></td></tr>`;
                 });
             });
         }
@@ -1403,125 +1645,53 @@
         document.getElementById('form-upload-materi').addEventListener('submit', (e) => {
             e.preventDefault();
             const editId = document.getElementById('materi-edit-id').value;
-            const payload = {
-                modulKey: document.getElementById('materi-target-modul').value,
-                judul: document.getElementById('materi-judul').value,
-                videoUrl: document.getElementById('materi-video-url').value,
-                deskripsi: document.getElementById('materi-deskripsi').value
-            };
+            const payload = { modulKey: document.getElementById('materi-target-modul').value, submodulKey: document.getElementById('materi-target-submodul').value, judul: document.getElementById('materi-judul').value, videoUrl: document.getElementById('materi-video-url').value, deskripsi: document.getElementById('materi-deskripsi').value };
 
-            if (editId) {
-                dbMateri.child(editId).update(payload).then(() => {
-                    alert("Materi berhasil diperbarui!");
-                    resetFormMateri();
-                });
-            } else {
-                const newMateriRef = dbMateri.push();
-                payload.id = newMateriRef.key;
-                newMateriRef.set(payload).then(() => {
-                    alert("Materi berhasil dipublikasikan!");
-                    resetFormMateri();
-                });
-            }
+            if (editId) { dbMateri.child(editId).update(payload).then(() => { alert("Materi berhasil diperbarui!"); resetFormMateri(); }); } 
+            else { const newMateriRef = dbMateri.push(); payload.id = newMateriRef.key; newMateriRef.set(payload).then(() => { alert("Materi berhasil dipublikasikan!"); resetFormMateri(); }); }
         });
 
         window.editMateri = (id) => {
             dbMateri.child(id).once('value', (snap) => {
                 const m = snap.val();
                 if (m) {
-                    document.getElementById('materi-edit-id').value = m.id;
-                    document.getElementById('materi-target-modul').value = m.modulKey;
-                    document.getElementById('materi-judul').value = m.judul;
-                    document.getElementById('materi-video-url').value = m.videoUrl || '';
-                    document.getElementById('materi-deskripsi').value = m.deskripsi;
-                    document.getElementById('form-materi-title').innerText = "Edit Materi Modul";
-                    document.getElementById('btn-batal-materi').style.display = "block";
+                    document.getElementById('materi-edit-id').value = m.id; document.getElementById('materi-target-modul').value = m.modulKey; document.getElementById('materi-target-submodul').value = m.submodulKey || 'umum'; document.getElementById('materi-judul').value = m.judul; document.getElementById('materi-video-url').value = m.videoUrl || ''; document.getElementById('materi-deskripsi').value = m.deskripsi; document.getElementById('form-materi-title').innerText = "Edit Materi Modul"; document.getElementById('btn-batal-materi').style.display = "block";
                 }
             });
         };
 
         window.hapusMateri = (id) => { if (confirm("Hapus materi?")) dbMateri.child(id).remove(); };
 
-        function resetFormMateri() {
-            document.getElementById('form-upload-materi').reset();
-            document.getElementById('materi-edit-id').value = '';
-            document.getElementById('form-materi-title').innerText = "Tambah Materi Modul Baru";
-            document.getElementById('btn-batal-materi').style.display = "none";
-        }
+        function resetFormMateri() { document.getElementById('form-upload-materi').reset(); document.getElementById('materi-edit-id').value = ''; document.getElementById('materi-target-submodul').value = 'umum'; document.getElementById('form-materi-title').innerText = "Tambah Materi Modul Baru"; document.getElementById('btn-batal-materi').style.display = "none"; }
 
         function muatDataKuisAdmin() {
             const tbody = document.getElementById('table-kuis-body');
             dbKuis.on('value', (snapshot) => {
                 tbody.innerHTML = '';
                 const data = snapshot.val();
-                if (!data) {
-                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada kuis.</td></tr>';
-                    return;
-                }
-                Object.values(data).forEach(q => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><span class="badge" style="margin:0;">${escapeHTML((q.modulKey || '').toUpperCase())}</span></td>
-                            <td>${escapeHTML(q.pertanyaan)}</td>
-                            <td><b>${escapeHTML(q.kunci)}</b></td>
-                            <td>
-                                <button class="btn-sm btn-primary" onclick="editKuis('${q.id}')"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm btn-danger" onclick="hapusKuis('${q.id}')"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
-                });
+                if (!data) { tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Belum ada kuis.</td></tr>'; return; }
+                Object.values(data).forEach(q => { tbody.innerHTML += `<tr><td><span class="badge" style="margin:0;">${escapeHTML((q.modulKey || '').toUpperCase())}</span></td><td><span class="badge" style="background:#e0f2f1; color:var(--primary); margin:0;">${escapeHTML((q.submodulKey || 'umum').toUpperCase())}</span></td><td>${escapeHTML(q.pertanyaan)}</td><td><b>${escapeHTML(q.kunci)}</b></td><td><button class="btn-sm btn-primary" onclick="editKuis('${q.id}')"><i class="fas fa-edit"></i></button> <button class="btn-sm btn-danger" onclick="hapusKuis('${q.id}')"><i class="fas fa-trash"></i></button></td></tr>`; });
             });
         }
 
         document.getElementById('form-tambah-kuis-fast').addEventListener('submit', (e) => {
             e.preventDefault();
-            const editId = document.getElementById('kuis-edit-id').value;
-            const modulKey = document.getElementById('kuis-target-modul').value;
+            const editId = document.getElementById('kuis-edit-id').value, modulKey = document.getElementById('kuis-target-modul').value, submodulKey = document.getElementById('kuis-target-submodul').value;
 
             if (editId) {
-                const pertanyaan = document.getElementById('edit-kuis-pertanyaan').value.trim();
-                const pilihanRaw = document.getElementById('edit-kuis-pilihan').value.trim();
-                const kunci = document.getElementById('edit-kuis-kunci').value.trim().toUpperCase();
-
-                const pilihan = pilihanRaw.split('\n').map(p => p.trim()).filter(p => p);
-
-                dbKuis.child(editId).update({
-                    modulKey,
-                    pertanyaan,
-                    pilihan,
-                    kunci
-                }).then(() => {
-                    alert("Soal kuis berhasil diperbarui!");
-                    resetFormKuis();
-                });
+                const pertanyaan = document.getElementById('edit-kuis-pertanyaan').value.trim(), pilihanRaw = document.getElementById('edit-kuis-pilihan').value.trim(), kunci = document.getElementById('edit-kuis-kunci').value.trim().toUpperCase(), pilihan = pilihanRaw.split('\n').map(p => p.trim()).filter(p => p);
+                dbKuis.child(editId).update({ modulKey, submodulKey, pertanyaan, pilihan, kunci }).then(() => { alert("Soal kuis berhasil diperbarui!"); resetFormKuis(); });
             } else {
-                const bulkText = document.getElementById('kuis-bulk-text').value.trim();
-                const rawBlocks = bulkText.split(/\n\s*\n/);
+                const bulkText = document.getElementById('kuis-bulk-text').value.trim(), rawBlocks = bulkText.split(/\n\s*\n/);
                 let countBerhasil = 0;
-
                 rawBlocks.forEach(block => {
                     const lines = block.split('\n').map(l => l.trim()).filter(l => l);
                     if (lines.length >= 3) {
-                        const pertanyaan = lines[0];
-                        const pilihan = lines.filter(l => l.match(/^[A-Ea-e][\.\)]/));
-                        const kunciMatch = block.match(/KUNCI:\s*([A-Ea-e])/i);
-
-                        if (pertanyaan && kunciMatch) {
-                            const newKuisRef = dbKuis.push();
-                            newKuisRef.set({
-                                id: newKuisRef.key,
-                                modulKey,
-                                pertanyaan,
-                                pilihan,
-                                kunci: kunciMatch[1].toUpperCase()
-                            });
-                            countBerhasil++;
-                        }
+                        const pertanyaan = lines[0], pilihan = lines.filter(l => l.match(/^[A-Ea-e][\.\)]/)), kunciMatch = block.match(/KUNCI:\s*([A-Ea-e])/i);
+                        if (pertanyaan && kunciMatch) { const newKuisRef = dbKuis.push(); newKuisRef.set({ id: newKuisRef.key, modulKey, submodulKey, pertanyaan, pilihan, kunci: kunciMatch[1].toUpperCase() }); countBerhasil++; }
                     }
                 });
-                alert(`Berhasil menyimpan ${countBerhasil} soal kuis!`);
-                resetFormKuis();
+                alert(`Berhasil menyimpan ${countBerhasil} soal kuis!`); resetFormKuis();
             }
         });
 
@@ -1529,63 +1699,201 @@
             dbKuis.child(id).once('value', (snap) => {
                 const q = snap.val();
                 if (q) {
-                    document.getElementById('kuis-edit-id').value = q.id;
-                    document.getElementById('kuis-target-modul').value = q.modulKey;
-                    document.getElementById('edit-kuis-pertanyaan').value = q.pertanyaan;
-                    document.getElementById('edit-kuis-pilihan').value = (q.pilihan || []).join('\n');
-                    document.getElementById('edit-kuis-kunci').value = q.kunci;
-
-                    document.getElementById('box-bulk-kuis').style.display = 'none';
-                    document.getElementById('box-edit-kuis').style.display = 'block';
-                    document.getElementById('form-kuis-title').innerText = "Edit Soal Kuis Evaluasi";
-                    document.getElementById('btn-batal-kuis').style.display = "block";
+                    document.getElementById('kuis-edit-id').value = q.id; document.getElementById('kuis-target-modul').value = q.modulKey; document.getElementById('kuis-target-submodul').value = q.submodulKey || 'umum'; document.getElementById('edit-kuis-pertanyaan').value = q.pertanyaan; document.getElementById('edit-kuis-pilihan').value = (q.pilihan || []).join('\n'); document.getElementById('edit-kuis-kunci').value = q.kunci; document.getElementById('box-bulk-kuis').style.display = 'none'; document.getElementById('box-edit-kuis').style.display = 'block'; document.getElementById('form-kuis-title').innerText = "Edit Soal Kuis Evaluasi"; document.getElementById('btn-batal-kuis').style.display = "block";
                 }
             });
         };
 
         window.hapusKuis = (id) => { if (confirm("Hapus soal kuis?")) dbKuis.child(id).remove(); };
 
-        function resetFormKuis() {
-            document.getElementById('form-tambah-kuis-fast').reset();
-            document.getElementById('kuis-edit-id').value = '';
-            document.getElementById('box-bulk-kuis').style.display = 'block';
-            document.getElementById('box-edit-kuis').style.display = 'none';
-            document.getElementById('form-kuis-title').innerText = "Input Soal Kuis (Fast Format Text)";
-            document.getElementById('btn-batal-kuis').style.display = "none";
+        function resetFormKuis() { document.getElementById('form-tambah-kuis-fast').reset(); document.getElementById('kuis-edit-id').value = ''; document.getElementById('kuis-target-submodul').value = 'umum'; document.getElementById('box-bulk-kuis').style.display = 'block'; document.getElementById('box-edit-kuis').style.display = 'none'; document.getElementById('form-kuis-title').innerText = "Input Soal Kuis (Fast Format Text)"; document.getElementById('btn-batal-kuis').style.display = "none"; }
+
+
+        /* === FUNGSI KELOLA BERITA / KELAS BERSAMA (ADMIN - DISESUAIKAN) === */
+        function muatDataBeritaAdmin() {
+            const tbody = document.getElementById('table-berita-body');
+            dbBerita.on('value', (snapshot) => {
+                tbody.innerHTML = '';
+                const data = snapshot.val();
+                if (!data) { tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada berita / kelas bersama.</td></tr>'; return; }
+                Object.values(data).forEach(b => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${escapeHTML(b.tanggalPosting || b.tanggal)}</td>
+                            <td><b>${escapeHTML(b.judul)}</b></td>
+                            <td>${escapeHTML(b.waktuAcara || '-')}</td>
+                            <td>
+                                <button class="btn-sm btn-primary" onclick="editBerita('${b.id}')"><i class="fas fa-edit"></i></button> 
+                                <button class="btn-sm btn-danger" onclick="hapusBerita('${b.id}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
         }
+
+        document.getElementById('form-upload-berita').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('berita-edit-id').value;
+            const payload = {
+                judul: document.getElementById('berita-judul').value.trim(),
+                waktuAcara: document.getElementById('berita-tanggal-waktu').value.trim(),
+                linkUrl: document.getElementById('berita-link').value.trim(),
+                imageUrl: document.getElementById('berita-image-url').value.trim(),
+                isi: document.getElementById('berita-isi').value.trim(),
+                tanggalPosting: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
+
+            if (editId) {
+                dbBerita.child(editId).update(payload).then(() => { alert("Berita / Kelas bersama berhasil diperbarui!"); resetFormBerita(); });
+            } else {
+                const newRef = dbBerita.push();
+                payload.id = newRef.key;
+                newRef.set(payload).then(() => { alert("Berita / Kelas bersama berhasil dipublikasikan!"); resetFormBerita(); });
+            }
+        });
+
+        window.editBerita = (id) => {
+            dbBerita.child(id).once('value', (snap) => {
+                const b = snap.val();
+                if (b) {
+                    document.getElementById('berita-edit-id').value = b.id;
+                    document.getElementById('berita-judul').value = b.judul;
+                    document.getElementById('berita-tanggal-waktu').value = b.waktuAcara || '';
+                    document.getElementById('berita-link').value = b.linkUrl || '';
+                    document.getElementById('berita-image-url').value = b.imageUrl;
+                    document.getElementById('berita-isi').value = b.isi;
+                    document.getElementById('form-berita-title').innerText = "Edit Berita / Kelas Bersama";
+                    document.getElementById('btn-batal-berita').style.display = "block";
+                }
+            });
+        };
+
+        window.hapusBerita = (id) => { if (confirm("Hapus postingan ini?")) dbBerita.child(id).remove(); };
+
+        window.resetFormBerita = () => {
+            document.getElementById('form-upload-berita').reset();
+            document.getElementById('berita-edit-id').value = '';
+            document.getElementById('form-berita-title').innerText = "Posting Berita / Kelas Bersama Baru";
+            document.getElementById('btn-batal-berita').style.display = "none";
+        };
+
+
+        /* === FUNGSI LOGIKA CHATBOT === */
+        function muatDataChatbotAdmin() {
+            const tbody = document.getElementById('table-chatbot-body');
+            dbChatbot.on('value', (snapshot) => {
+                tbody.innerHTML = '';
+                const data = snapshot.val();
+                if (!data) { tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Belum ada opsi Q&A Chatbot.</td></tr>'; return; }
+                Object.values(data).forEach(c => { 
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><b>${escapeHTML(c.pertanyaan)}</b></td>
+                            <td>${escapeHTML(c.jawaban).substring(0, 80)}${c.jawaban.length > 80 ? '...' : ''}</td>
+                            <td>
+                                <button class="btn-sm btn-primary" onclick="editChatbot('${c.id}')"><i class="fas fa-edit"></i></button> 
+                                <button class="btn-sm btn-danger" onclick="hapusChatbot('${c.id}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `; 
+                });
+            });
+        }
+
+        document.getElementById('form-chatbot').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('chatbot-edit-id').value;
+            const payload = {
+                pertanyaan: document.getElementById('chatbot-tanya').value.trim(),
+                jawaban: document.getElementById('chatbot-jawab').value.trim()
+            };
+
+            if (editId) { 
+                dbChatbot.child(editId).update(payload).then(() => { alert("Q&A Chatbot diperbarui!"); resetFormChatbot(); }); 
+            } else { 
+                const newRef = dbChatbot.push(); 
+                payload.id = newRef.key; 
+                newRef.set(payload).then(() => { alert("Q&A Chatbot baru ditambahkan!"); resetFormChatbot(); }); 
+            }
+        });
+
+        window.editChatbot = (id) => {
+            dbChatbot.child(id).once('value', (snap) => {
+                const c = snap.val();
+                if (c) {
+                    document.getElementById('chatbot-edit-id').value = c.id;
+                    document.getElementById('chatbot-tanya').value = c.pertanyaan;
+                    document.getElementById('chatbot-jawab').value = c.jawaban;
+                    document.getElementById('form-chatbot-title').innerText = "Edit Q&A Chatbot";
+                    document.getElementById('btn-batal-chatbot').style.display = "block";
+                }
+            });
+        };
+
+        window.hapusChatbot = (id) => { if (confirm("Hapus Q&A chatbot ini?")) dbChatbot.child(id).remove(); };
+
+        window.resetFormChatbot = () => {
+            document.getElementById('form-chatbot').reset();
+            document.getElementById('chatbot-edit-id').value = '';
+            document.getElementById('form-chatbot-title').innerText = "Tambah Opsi Tanya-Jawab Chatbot";
+            document.getElementById('btn-batal-chatbot').style.display = "none";
+        };
+
+        window.toggleChatWindow = () => {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.classList.toggle('active');
+        };
+
+        dbChatbot.on('value', (snap) => {
+            const data = snap.val();
+            const container = document.getElementById('chat-options-container');
+            container.innerHTML = '';
+            if (data) {
+                Object.values(data).forEach(c => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chat-opt-btn';
+                    btn.innerHTML = `${escapeHTML(c.pertanyaan)} <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>`;
+                    btn.addEventListener('click', () => {
+                        kirimChat(c.pertanyaan, c.jawaban);
+                    });
+                    container.appendChild(btn);
+                });
+            } else {
+                container.innerHTML = '<span style="font-size:0.85rem; color:#888; text-align:center; padding:10px;">Belum ada pilihan pertanyaan yang tersedia.</span>';
+            }
+        });
+
+        window.kirimChat = (tanya, jawab) => {
+            const body = document.getElementById('chat-body');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user-msg';
+            userMsg.innerText = tanya;
+            body.appendChild(userMsg);
+            body.scrollTop = body.scrollHeight;
+
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg bot-msg';
+                botMsg.innerHTML = escapeHTML(jawab).replace(/\n/g, '<br>');
+                body.appendChild(botMsg);
+                body.scrollTop = body.scrollHeight;
+            }, 600);
+        };
 
         window.switchAdminTab = (tabId, ev) => {
             document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
             if (ev && ev.currentTarget) ev.currentTarget.classList.add('active');
-
-            if (tabId === 'tab-analytics' && visitChartInstance) {
-                setTimeout(() => {
-                    visitChartInstance.resize();
-                }, 100);
-            }
+            if (tabId === 'tab-analytics' && visitChartInstance) setTimeout(() => { visitChartInstance.resize(); }, 100);
         };
 
-        document.addEventListener('contextmenu', function(e) { 
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            e.preventDefault(); 
-        });
+        document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return; e.preventDefault(); });
 
-         const slides = document.querySelectorAll('.hero-image .image-slider');
-                let currentIndex = 0;
-        
-                setInterval(() => {
-                    // Sembunyikan gambar aktif saat ini
-                    slides[currentIndex].classList.remove('active');
-                    
-                    // Pindah ke indeks berikutnya (kembali ke 0 jika sudah di akhir)
-                    currentIndex = (currentIndex + 1) % slides.length;
-                    
-                    // Tampilkan gambar baru
-                    slides[currentIndex].classList.add('active');
-                }, 3500); // Pergantian dilakukan setiap 3.5 detik
-           
+        const slides = document.querySelectorAll('.hero-image .image-slider');
+        let currentIndex = 0;
+        setInterval(() => { slides[currentIndex].classList.remove('active'); currentIndex = (currentIndex + 1) % slides.length; slides[currentIndex].classList.add('active'); }, 3500);
     </script>
 </body>
 </html>
